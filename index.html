@@ -23,6 +23,10 @@
     --transition-field:0.22s ease;
     --transition-smooth:0.55s cubic-bezier(.2,.8,.2,1);
     --bottom-nav-offset:86px;
+    --body-bottom-safe-area:calc(var(--bottom-nav-offset) + 26px);
+    --hero-glow-x:85%;
+    --hero-glow-y:4%;
+    --hero-glow-size:31%;
 }
 
 *{box-sizing:border-box;}
@@ -34,10 +38,10 @@ body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     background:
         radial-gradient(circle at 20% -10%,rgba(255,215,0,0.34),transparent 28%),
-        radial-gradient(circle at 85% 4%,var(--accent-purple),transparent 31%),
+        radial-gradient(circle at var(--hero-glow-x) var(--hero-glow-y),var(--accent-purple),transparent var(--hero-glow-size)),
         linear-gradient(180deg,#2E007B 0%,#210057 34%,#5a36a1 39%,#f6f2ff 46%,#f7f4fb 100%);
     color:var(--ink);
-    padding-bottom:112px;
+    padding-bottom:var(--body-bottom-safe-area);
     -webkit-font-smoothing:antialiased;
 }
 
@@ -123,6 +127,7 @@ body::before{
 .card{
     position:relative;
     overflow:hidden;
+    scroll-margin-top:18px;
     background:var(--surface);
     color:var(--ink);
     padding:20px;
@@ -470,7 +475,7 @@ button:active{transform:scale(0.98);}
 <div class="container">
 
   <!-- DADOS PESSOAIS -->
-  <div class="card">
+  <div class="card" id="dadosSection">
     <h4>👤 Dados</h4>
     <input id="nome" placeholder="Nome">
     <input id="telefone" placeholder="Telefone" inputmode="numeric">
@@ -571,7 +576,7 @@ button:active{transform:scale(0.98);}
   </div>
 
   <!-- ROTA (mesmo padrão dos demais cards) -->
-  <div class="card rota-card">
+  <div class="card rota-card" id="rotaSection">
     <h4>🗺️ Rota estimada</h4>
     <div class="rota-grid">
       <div class="rota-box" id="rotaBoxDistancia">
@@ -587,7 +592,7 @@ button:active{transform:scale(0.98);}
   </div>
 
   <!-- ITENS -->
-  <div class="card">
+  <div class="card" id="itensSection">
     <h4>📦 Itens a transportar</h4>
     <textarea id="itens" placeholder="Liste todos os itens (um por linha)"></textarea>
     <div>⚠️ É essencial listar todos os itens corretamente para evitar alteração no valor final.</div>
@@ -764,9 +769,9 @@ button:active{transform:scale(0.98);}
 </div>
 
 <nav class="bottom-nav" aria-label="Navegação rápida">
-  <a href="#nome" aria-label="Ir para dados pessoais"><span aria-hidden="true">👤</span>Dados</a>
-  <a href="#rotaStatus" aria-label="Ir para rota estimada"><span aria-hidden="true">🗺️</span>Rota</a>
-  <a href="#itens" aria-label="Ir para itens a transportar"><span aria-hidden="true">📦</span>Itens</a>
+  <a href="#dadosSection" aria-label="Ir para dados pessoais"><span aria-hidden="true">👤</span>Dados</a>
+  <a href="#rotaSection" aria-label="Ir para rota estimada"><span aria-hidden="true">🗺️</span>Rota</a>
+  <a href="#itensSection" aria-label="Ir para itens a transportar"><span aria-hidden="true">📦</span>Itens</a>
   <a href="#enviarCta" aria-label="Ir para enviar orçamento"><span aria-hidden="true">🚀</span>Enviar</a>
 </nav>
 
