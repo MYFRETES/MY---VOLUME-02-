@@ -10,6 +10,7 @@
 :root{
     --primary:#2E007B;
     --primary-2:#4B00B5;
+    --accent-purple:rgba(126,52,255,0.34);
     --secondary:#FFD700;
     --ink:#190033;
     --muted:#71637f;
@@ -18,6 +19,10 @@
     --line:rgba(46,0,123,0.12);
     --shadow:0 24px 70px rgba(13,0,34,0.22);
     --soft-shadow:0 14px 34px rgba(46,0,123,0.13);
+    --transition-fast:0.2s ease;
+    --transition-field:0.22s ease;
+    --transition-smooth:0.55s cubic-bezier(.2,.8,.2,1);
+    --bottom-nav-offset:86px;
 }
 
 *{box-sizing:border-box;}
@@ -29,7 +34,7 @@ body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     background:
         radial-gradient(circle at 20% -10%,rgba(255,215,0,0.34),transparent 28%),
-        radial-gradient(circle at 85% 4%,rgba(126,52,255,0.34),transparent 31%),
+        radial-gradient(circle at 85% 4%,var(--accent-purple),transparent 31%),
         linear-gradient(180deg,#2E007B 0%,#210057 38%,#f6f2ff 38%,#f7f4fb 100%);
     color:var(--ink);
     padding-bottom:112px;
@@ -105,7 +110,7 @@ body::before{
     -webkit-backdrop-filter:blur(18px);
     opacity:0;
     transform:translateY(12px) scale(0.98);
-    transition:all 0.55s cubic-bezier(.2,.8,.2,1);
+    transition:all var(--transition-smooth);
 }
 .feedback.active{opacity:1;transform:translateY(0) scale(1);}
 
@@ -160,7 +165,7 @@ input,select,textarea{
     color:var(--ink);
     font-size:15px;
     box-shadow:inset 0 1px 0 rgba(255,255,255,0.85),0 10px 24px rgba(46,0,123,0.06);
-    transition:border-color 0.22s ease,box-shadow 0.22s ease,transform 0.22s ease,background 0.22s ease;
+    transition:border-color var(--transition-field),box-shadow var(--transition-field),transform var(--transition-field),background var(--transition-field);
 }
 
 textarea{min-height:116px;resize:vertical;font-family:inherit;line-height:1.45;}
@@ -185,14 +190,14 @@ button{
     font-size:16px;
     margin-top:10px;
     cursor:pointer;
-    transition:transform 0.2s ease,box-shadow 0.2s ease,filter 0.2s ease;
+    transition:transform var(--transition-fast),box-shadow var(--transition-fast),filter var(--transition-fast);
     box-shadow:0 16px 34px rgba(255,215,0,0.26);
 }
 button:hover{filter:saturate(1.08) brightness(1.01);transform:translateY(-1px);}
 button:active{transform:scale(0.98);}
 .app-cta{
     position:sticky;
-    bottom:86px;
+    bottom:var(--bottom-nav-offset);
     z-index:20;
     min-height:58px;
     border-radius:22px;
@@ -218,7 +223,7 @@ button:active{transform:scale(0.98);}
     align-items:center;
     gap:6px;
     z-index:999;
-    transition:0.3s;
+    transition:transform var(--transition-field),box-shadow var(--transition-field),background var(--transition-field);
     animation:pulse 2.5s infinite;
     backdrop-filter:blur(14px);
     -webkit-backdrop-filter:blur(14px);
@@ -258,7 +263,7 @@ button:active{transform:scale(0.98);}
     cursor:pointer;
     border:1.5px solid rgba(46,0,123,0.16);
     box-shadow:none;
-    transition:0.2s;
+    transition:background var(--transition-fast),transform var(--transition-fast);
     flex-shrink:0;
 }
 .btn-loc:hover{background:rgba(46,0,123,0.1);}
@@ -298,7 +303,7 @@ button:active{transform:scale(0.98);}
     padding:16px;
     border-radius:22px;
     text-align:center;
-    transition:0.25s;
+    transition:background var(--transition-field),border-color var(--transition-field);
     box-shadow:inset 0 1px 0 rgba(255,255,255,0.2);
 }
 .rota-box.preenchido{
@@ -420,7 +425,7 @@ button:active{transform:scale(0.98);}
     font-weight:900;
     padding:8px 4px;
     border-radius:18px;
-    transition:background 0.2s ease,transform 0.2s ease;
+    transition:background var(--transition-fast),transform var(--transition-fast);
 }
 .bottom-nav a:hover{
     background:rgba(46,0,123,0.08);
@@ -759,10 +764,10 @@ button:active{transform:scale(0.98);}
 </div>
 
 <nav class="bottom-nav" aria-label="Navegação rápida">
-  <a href="#nome"><span>👤</span>Dados</a>
-  <a href="#rotaStatus"><span>🗺️</span>Rota</a>
-  <a href="#itens"><span>📦</span>Itens</a>
-  <a href="#enviarCta"><span>🚀</span>Enviar</a>
+  <a href="#nome" aria-label="Ir para dados pessoais"><span>👤</span>Dados</a>
+  <a href="#rotaStatus" aria-label="Ir para rota estimada"><span>🗺️</span>Rota</a>
+  <a href="#itens" aria-label="Ir para itens a transportar"><span>📦</span>Itens</a>
+  <a href="#enviarCta" aria-label="Ir para enviar orçamento"><span>🚀</span>Enviar</a>
 </nav>
 
 <script>
