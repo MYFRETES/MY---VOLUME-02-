@@ -35,7 +35,7 @@ body{
     background:
         radial-gradient(circle at 20% -10%,rgba(255,215,0,0.34),transparent 28%),
         radial-gradient(circle at 85% 4%,var(--accent-purple),transparent 31%),
-        linear-gradient(180deg,#2E007B 0%,#210057 38%,#f6f2ff 38%,#f7f4fb 100%);
+        linear-gradient(180deg,#2E007B 0%,#210057 34%,#5a36a1 39%,#f6f2ff 46%,#f7f4fb 100%);
     color:var(--ink);
     padding-bottom:112px;
     -webkit-font-smoothing:antialiased;
@@ -165,7 +165,7 @@ input,select,textarea{
     color:var(--ink);
     font-size:15px;
     box-shadow:inset 0 1px 0 rgba(255,255,255,0.85),0 10px 24px rgba(46,0,123,0.06);
-    transition:border-color var(--transition-field),box-shadow var(--transition-field),transform var(--transition-field),background var(--transition-field);
+    transition:all var(--transition-field);
 }
 
 textarea{min-height:116px;resize:vertical;font-family:inherit;line-height:1.45;}
@@ -764,10 +764,10 @@ button:active{transform:scale(0.98);}
 </div>
 
 <nav class="bottom-nav" aria-label="Navegação rápida">
-  <a href="#nome" aria-label="Ir para dados pessoais"><span>👤</span>Dados</a>
-  <a href="#rotaStatus" aria-label="Ir para rota estimada"><span>🗺️</span>Rota</a>
-  <a href="#itens" aria-label="Ir para itens a transportar"><span>📦</span>Itens</a>
-  <a href="#enviarCta" aria-label="Ir para enviar orçamento"><span>🚀</span>Enviar</a>
+  <a href="#nome" aria-label="Ir para dados pessoais"><span aria-hidden="true">👤</span>Dados</a>
+  <a href="#rotaStatus" aria-label="Ir para rota estimada"><span aria-hidden="true">🗺️</span>Rota</a>
+  <a href="#itens" aria-label="Ir para itens a transportar"><span aria-hidden="true">📦</span>Itens</a>
+  <a href="#enviarCta" aria-label="Ir para enviar orçamento"><span aria-hidden="true">🚀</span>Enviar</a>
 </nav>
 
 <script>
