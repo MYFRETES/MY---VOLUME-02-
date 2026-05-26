@@ -62,7 +62,7 @@ body{
     background-attachment: fixed;
     min-height:100vh;
     padding-top:calc(var(--safe-top) + 8px);
-    padding-bottom:calc(160px + var(--safe-bottom));
+    padding-bottom:calc(24px + var(--safe-bottom));
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
     overflow-x:hidden;
@@ -438,66 +438,72 @@ button:hover::after{transform:translateX(100%);}
 #embalagemItensLista .embalagem-item-text{flex:1;word-break:break-word;}
 
 /* =========================================================
-   STICKY CTA — fixed bottom action above the bottom nav
+   RESUMO — accordion no fluxo natural
    ========================================================= */
-.cta-sticky{
-    position:fixed;left:0;right:0;
-    bottom:calc(64px + var(--safe-bottom));
-    padding:10px 16px 6px;
-    z-index:40;
-    pointer-events:none;
-    background:linear-gradient(180deg, rgba(14,0,36,0) 0%, rgba(14,0,36,.55) 60%, rgba(14,0,36,.85) 100%);
-    backdrop-filter:blur(2px);
+.resumo-card{overflow:hidden;}
+.resumo-toggle{
+    width:100%;
+    margin:0;
+    background:linear-gradient(135deg,#FFFDF2,#FFF6C8);
+    color:var(--c-primary);
+    border:1px solid rgba(255,215,0,.45);
+    border-radius:16px;
+    padding:14px 16px;
+    display:flex;align-items:center;justify-content:space-between;
+    font-size:15px;font-weight:800;
+    box-shadow:0 10px 22px rgba(255,215,0,.22), inset 0 1px 0 rgba(255,255,255,.75);
 }
-.cta-sticky .cta-inner{
-    max-width:520px;margin:0 auto;pointer-events:auto;
+.resumo-toggle .resumo-meta{
+    display:flex;align-items:center;gap:8px;
 }
-.cta-sticky button{
-    margin-top:0;
-    border-radius:var(--r-pill);
-    padding:16px 22px;
-    box-shadow:0 14px 36px rgba(255,215,0,.45), 0 4px 10px rgba(0,0,0,.25), inset 0 -2px 0 rgba(0,0,0,.08);
+.resumo-chevron{
+    font-size:18px;
+    transition:transform .28s var(--ease);
 }
-
-/* The original submit button has been moved into .cta-sticky below (single
-   instance in the DOM — same element, same onclick, just visually elevated). */
-
-/* =========================================================
-   BOTTOM NAV — quick jump to sections
-   ========================================================= */
-.bottom-nav{
-    position:fixed;left:0;right:0;bottom:0;
-    z-index:45;
-    padding:6px 8px calc(6px + var(--safe-bottom));
-    background:rgba(14,0,36,.78);
-    backdrop-filter:blur(22px) saturate(160%);
-    -webkit-backdrop-filter:blur(22px) saturate(160%);
-    border-top:1px solid rgba(255,255,255,.08);
-    box-shadow:0 -10px 30px rgba(0,0,0,.35);
+.resumo-toggle[aria-expanded="true"] .resumo-chevron{
+    transform:rotate(180deg);
 }
-.bottom-nav-inner{
-    max-width:520px;margin:0 auto;
-    display:grid;grid-template-columns:repeat(6,1fr);gap:2px;
+.resumo-body{
+    max-height:0;
+    opacity:0;
+    overflow:hidden;
+    transition:max-height .35s var(--ease), opacity .25s var(--ease), margin-top .25s var(--ease);
 }
-.nav-btn{
-    background:transparent;border:none;color:#CFC2F2;
-    padding:8px 4px;margin:0;
-    display:flex;flex-direction:column;align-items:center;gap:3px;
-    font-size:10.5px;font-weight:600;letter-spacing:.2px;
-    border-radius:12px;
-    cursor:pointer;
-    transition:color .2s var(--ease), background .2s var(--ease), transform .15s var(--ease);
-    box-shadow:none;
-    width:auto;line-height:1;
+.resumo-body.is-open{
+    max-height:2200px;
+    opacity:1;
+    margin-top:14px;
 }
-.nav-btn:hover{transform:none;background:rgba(255,255,255,.06);box-shadow:none;color:#FFFFFF;filter:none;}
-.nav-btn:active{transform:scale(.94);}
-.nav-btn::after{display:none;}
-.nav-btn .nav-ic{
-    font-size:18px;line-height:1;
-    filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));
+.resumo-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
 }
-.nav-btn.is-active{color:#FFD700;background:rgba(255,215,0,.08);}
+.resumo-item{
+    background:var(--c-surface-soft);
+    border:1px solid var(--c-line);
+    border-radius:16px;
+    padding:12px 13px;
+    box-shadow:var(--sh-1);
+}
+.resumo-tag{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:12px;font-weight:700;
+    color:#5B3A9A;
+    background:#EEE3FF;
+    border-radius:999px;
+    padding:4px 10px;
+    margin-bottom:7px;
+}
+.resumo-value{
+    color:var(--c-ink-soft);
+    font-size:13px;
+    line-height:1.45;
+    white-space:pre-line;
+}
+.resumo-enviar{
+    margin-top:12px;
+}
 
 /* =========================================================
    RESPONSIVE / MOBILE TUNING
@@ -506,8 +512,7 @@ button:hover::after{transform:translateX(100%);}
     .logo{font-size:38px;}
     .feedback{font-size:12px;padding:8px 14px;}
     .card{padding:18px 16px;border-radius:18px;}
-    .nav-btn{font-size:9.5px;}
-    .nav-btn .nav-ic{font-size:17px;}
+    .resumo-tag{font-size:11px;}
 }
 @media (min-width:640px){
     .container{padding-top:8px;}
@@ -834,76 +839,26 @@ button:hover::after{transform:translateX(100%);}
     </div>
   </div>
 
-  <!-- spacer to keep last card visible above sticky CTA + bottom nav -->
-  <div style="height:8px;" aria-hidden="true"></div>
+  <div class="card resumo-card" id="sec-resumo">
+    <button type="button" class="resumo-toggle" id="resumoToggle" aria-expanded="false" aria-controls="resumoBody">
+      <span class="resumo-meta">📋 Resumo</span>
+      <span class="resumo-chevron" aria-hidden="true">⌄</span>
+    </button>
+    <div class="resumo-body" id="resumoBody">
+      <div class="resumo-grid">
+        <div class="resumo-item"><span class="resumo-tag">📍 Retirada</span><div class="resumo-value" id="resumoRetirada">Preencha os dados para visualizar.</div></div>
+        <div class="resumo-item"><span class="resumo-tag">🏁 Destino</span><div class="resumo-value" id="resumoDestino">Preencha os dados para visualizar.</div></div>
+        <div class="resumo-item"><span class="resumo-tag">📦 Itens</span><div class="resumo-value" id="resumoItens">Preencha os dados para visualizar.</div></div>
+        <div class="resumo-item"><span class="resumo-tag">👷 Ajudantes</span><div class="resumo-value" id="resumoAjudantes">Preencha os dados para visualizar.</div></div>
+        <div class="resumo-item"><span class="resumo-tag">📅 Data/Horário</span><div class="resumo-value" id="resumoDataHorario">Preencha os dados para visualizar.</div></div>
+        <div class="resumo-item"><span class="resumo-tag">🚚 Dados do Frete</span><div class="resumo-value" id="resumoFrete">Preencha os dados para visualizar.</div></div>
+        <div class="resumo-item"><span class="resumo-tag">💰 Resumo Geral</span><div class="resumo-value" id="resumoGeral">Preencha os dados para visualizar.</div></div>
+      </div>
+      <button class="resumo-enviar" onclick="enviar()">ENVIAR ORÇAMENTO NO WHATSAPP 🚀</button>
+    </div>
+  </div>
 
 </div>
-
-<!-- STICKY CTA — same button, same onclick, just visually elevated -->
-<div class="cta-sticky" role="region" aria-label="Enviar orçamento">
-  <div class="cta-inner">
-    <button onclick="enviar()">ENVIAR ORÇAMENTO NO WHATSAPP 🚀</button>
-  </div>
-</div>
-
-<!-- BOTTOM NAVIGATION — scrolls to existing sections, no logic change -->
-<nav class="bottom-nav" aria-label="Navegação rápida">
-  <div class="bottom-nav-inner">
-    <button type="button" class="nav-btn" data-target="sec-dados" aria-label="Dados">
-      <span class="nav-ic">👤</span><span>Dados</span>
-    </button>
-    <button type="button" class="nav-btn" data-target="sec-data" aria-label="Data">
-      <span class="nav-ic">📅</span><span>Data</span>
-    </button>
-    <button type="button" class="nav-btn" data-target="sec-coleta" aria-label="Coleta">
-      <span class="nav-ic">📍</span><span>Coleta</span>
-    </button>
-    <button type="button" class="nav-btn" data-target="sec-destino" aria-label="Destino">
-      <span class="nav-ic">🏁</span><span>Destino</span>
-    </button>
-    <button type="button" class="nav-btn" data-target="sec-itens" aria-label="Itens">
-      <span class="nav-ic">📦</span><span>Itens</span>
-    </button>
-    <button type="button" class="nav-btn" data-target="sec-ajudante" aria-label="Ajuda">
-      <span class="nav-ic">👥</span><span>Ajuda</span>
-    </button>
-  </div>
-</nav>
-
-<script>
-/* Bottom-nav smooth scroll + active section highlight — purely visual */
-(function(){
-    var navBtns = document.querySelectorAll('.bottom-nav .nav-btn');
-    navBtns.forEach(function(btn){
-        btn.addEventListener('click', function(){
-            var id = btn.getAttribute('data-target');
-            var el = document.getElementById(id);
-            if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
-        });
-    });
-    var sections = Array.prototype.map.call(navBtns, function(b){
-        return { btn:b, el:document.getElementById(b.getAttribute('data-target')) };
-    }).filter(function(s){ return s.el; });
-
-    if('IntersectionObserver' in window){
-        var io = new IntersectionObserver(function(entries){
-            entries.forEach(function(e){
-                if(e.isIntersecting){
-                    sections.forEach(function(s){
-                        s.btn.classList.toggle('is-active', s.el === e.target);
-                    });
-                }
-            });
-        }, {
-            /* Trigger the active-nav highlight when a section occupies the
-               middle band of the viewport (top 40% and bottom 55% are ignored),
-               giving a stable indicator while the user scrolls between cards. */
-            rootMargin: '-40% 0px -55% 0px', threshold: 0
-        });
-        sections.forEach(function(s){ io.observe(s.el); });
-    }
-})();
-</script>
 
 <script>
 /* =========================================================
@@ -1048,6 +1003,7 @@ function resetRotaUI(msg){
     document.getElementById("rotaBoxTempo").classList.remove("preenchido");
     setRotaStatus(msg, false);
     rotaUltima = null;
+    if(typeof atualizarResumo === "function") atualizarResumo();
 }
 
 /* debounce só usado p/ mudanças não atômicas (ex.: alterar nº de paradas) */
@@ -1112,6 +1068,7 @@ function calcularRota(){
         setRotaStatus("Rota calculada automaticamente ✅", false);
 
         rotaUltima = { distanciaKm: kmTxt, duracaoTexto: duracaoTxt };
+        if(typeof atualizarResumo === "function") atualizarResumo();
     });
 }
 
@@ -1133,11 +1090,13 @@ function toggleParadas(){
     document.getElementById("parada3Div").classList.toggle("hidden", qtd < 3);
     atualizarParadasAjuda();
     agendarRecalculoRota();
+    if(typeof atualizarResumo === "function") atualizarResumo();
 }
 
 function toggleAjuda(){
     document.getElementById("ajudaDiv").classList.toggle("hidden", document.getElementById("ajuda").value !== "sim");
     atualizarParadasAjuda();
+    if(typeof atualizarResumo === "function") atualizarResumo();
 }
 
 function atualizarParadasAjuda(){
@@ -1150,6 +1109,7 @@ function atualizarParadasAjuda(){
 
 function toggleDesmontar(){
     document.getElementById("itensDesmontar").classList.toggle("hidden", document.getElementById("desmontar").value !== "sim");
+    if(typeof atualizarResumo === "function") atualizarResumo();
 }
 
 /* =========================================================
@@ -1217,6 +1177,7 @@ function toggleEmbalagem(){
     } else {
         container.classList.add("hidden");
     }
+    if(typeof atualizarResumo === "function") atualizarResumo();
 }
 
 // Mantém a checklist sincronizada quando o usuário edita "Itens a transportar"
@@ -1227,8 +1188,84 @@ document.addEventListener("DOMContentLoaded", function(){
             if(document.getElementById("embalagem").value === "parcial"){
                 renderEmbalagemChecklist();
             }
+            if(typeof atualizarResumo === "function") atualizarResumo();
         });
     }
+});
+
+function valorOuPadrao(v){
+    return (v || "").toString().trim() || "(não informado)";
+}
+
+function obterEnderecoResumo(sufixo){
+    const endereco = montarEndereco(sufixo);
+    const complemento = valorOuPadrao((document.getElementById("complemento" + sufixo) || {}).value || "");
+    return "Endereço: " + endereco + "\nComplemento: " + complemento + "\nReferência: (não informada)";
+}
+
+function atualizarResumo(){
+    const setTxt = function(id, valor){
+        const el = document.getElementById(id);
+        if(el) el.textContent = valor;
+    };
+
+    const itens = getItensTransportar();
+    const ajuda = document.getElementById("ajuda").value;
+    const qtdParadas = parseInt(document.getElementById("parada").value, 10) || 0;
+    const embalagem = document.getElementById("embalagem").value;
+
+    let embalagemTxt = "Embalagem: Não";
+    if(embalagem === "completa"){
+        embalagemTxt = "Embalagem: Completa";
+    } else if(embalagem === "parcial"){
+        const selecionados = Array.from(
+            document.querySelectorAll('#embalagemItensLista input[type="checkbox"]:checked')
+        ).map(cb => cb.value);
+        embalagemTxt = "Embalagem parcial: " + (selecionados.length ? selecionados.join(", ") : "(nenhum item selecionado)");
+    }
+
+    setTxt("resumoRetirada", obterEnderecoResumo("Coleta"));
+    setTxt("resumoDestino", obterEnderecoResumo("Destino"));
+    setTxt("resumoItens",
+        "Itens listados: " + (itens.length || 0) + "\n" +
+        (itens.length ? itens.map(i => "• " + i).join("\n") : "(nenhum item informado)") + "\n" +
+        embalagemTxt
+    );
+    setTxt("resumoAjudantes",
+        "Precisa de ajudante: " + (ajuda === "sim" ? "Sim" : "Não") + "\n" +
+        "Quantidade: " + (ajuda === "sim" ? descreverQtdAjudante(document.getElementById("quantidade_ajudante").value) : "(não aplicável)")
+    );
+    setTxt("resumoDataHorario",
+        "Data: " + valorOuPadrao(document.getElementById("data").value) + "\n" +
+        "Horário: " + valorOuPadrao(document.getElementById("horario").value)
+    );
+    setTxt("resumoFrete",
+        "Paradas: " + qtdParadas + "\n" +
+        "Distância: " + (rotaUltima ? rotaUltima.distanciaKm : "(aguardando cálculo)") + "\n" +
+        "Tempo estimado: " + (rotaUltima ? rotaUltima.duracaoTexto : "(aguardando cálculo)") + "\n" +
+        "Tipo de veículo: (definido no atendimento)"
+    );
+    setTxt("resumoGeral",
+        "Cliente: " + valorOuPadrao(document.getElementById("nome").value) + "\n" +
+        "Telefone: " + valorOuPadrao(document.getElementById("telefone").value) + "\n" +
+        "Observações: " + valorOuPadrao(document.getElementById("observacoes").value)
+    );
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+    const resumoToggle = document.getElementById("resumoToggle");
+    const resumoBody = document.getElementById("resumoBody");
+    if(resumoToggle && resumoBody){
+        resumoToggle.addEventListener("click", function(){
+            const expanded = resumoToggle.getAttribute("aria-expanded") === "true";
+            resumoToggle.setAttribute("aria-expanded", expanded ? "false" : "true");
+            resumoBody.classList.toggle("is-open", !expanded);
+        });
+    }
+
+    document.addEventListener("input", function(){ atualizarResumo(); }, true);
+    document.addEventListener("change", function(){ atualizarResumo(); }, true);
+    atualizarResumo();
 });
 
 function nivel(id){
