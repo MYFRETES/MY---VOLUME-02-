@@ -1264,11 +1264,11 @@ function atualizarResumo(){
     );
     setTxt("resumoAjudantes",
         "Precisa de ajudante: " + (ajuda === "sim" ? "Sim" : "Não") + "\n" +
-        "Quantidade: " + (ajuda === "sim" ? descreverQtdAjudante(document.getElementById("quantidade_ajudante").value) : "(não aplicável)")
+        "Quantidade: " + (ajuda === "sim" ? descreverQtdAjudante((document.getElementById("quantidade_ajudante") || {}).value) : "(não aplicável)")
     );
     setTxt("resumoDataHorario",
-        "Data: " + valorOuPadrao(document.getElementById("data").value) + "\n" +
-        "Horário: " + valorOuPadrao(document.getElementById("horario").value)
+        "Data: " + valorOuPadrao((document.getElementById("data") || {}).value) + "\n" +
+        "Horário: " + valorOuPadrao((document.getElementById("horario") || {}).value)
     );
     setTxt("resumoFrete",
         "Paradas: " + qtdParadas + "\n" +
@@ -1277,9 +1277,9 @@ function atualizarResumo(){
         "Tipo de veículo: " + obterTipoVeiculoResumo()
     );
     setTxt("resumoGeral",
-        "Cliente: " + valorOuPadrao(document.getElementById("nome").value) + "\n" +
-        "Telefone: " + valorOuPadrao(document.getElementById("telefone").value) + "\n" +
-        "Observações: " + valorOuPadrao(document.getElementById("observacoes").value)
+        "Cliente: " + valorOuPadrao((document.getElementById("nome") || {}).value) + "\n" +
+        "Telefone: " + valorOuPadrao((document.getElementById("telefone") || {}).value) + "\n" +
+        "Observações: " + valorOuPadrao((document.getElementById("observacoes") || {}).value)
     );
 }
 
