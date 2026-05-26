@@ -1209,13 +1209,13 @@ function getPrimeiroValorPreenchido(ids){
 }
 
 function obterReferenciaEndereco(sufixo){
-    let candidatos = ["referencia" + sufixo, "pontoReferencia" + sufixo, "ref" + sufixo];
+    let id = "referencia" + sufixo;
     if(sufixo === "Coleta"){
-        candidatos = ["referenciaColeta","pontoReferenciaColeta","refColeta"];
+        id = "referenciaColeta";
     } else if(sufixo === "Destino"){
-        candidatos = ["referenciaDestino","pontoReferenciaDestino","refDestino"];
+        id = "referenciaDestino";
     }
-    return getPrimeiroValorPreenchido(candidatos);
+    return getPrimeiroValorPreenchido([id]);
 }
 
 function obterTipoVeiculoResumo(){
