@@ -459,7 +459,8 @@ button:hover::after{transform:translateX(100%);}
     box-shadow:0 14px 36px rgba(255,215,0,.45), 0 4px 10px rgba(0,0,0,.25), inset 0 -2px 0 rgba(0,0,0,.08);
 }
 
-/* keep the original in-flow submit visually hidden but accessible-free (we render a clone in the sticky) — but we keep the original button as the sole one in DOM by moving it inside .cta-sticky. */
+/* The original submit button has been moved into .cta-sticky below (single
+   instance in the DOM — same element, same onclick, just visually elevated). */
 
 /* =========================================================
    BOTTOM NAV — quick jump to sections
@@ -893,7 +894,12 @@ button:hover::after{transform:translateX(100%);}
                     });
                 }
             });
-        }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+        }, {
+            /* Trigger the active-nav highlight when a section occupies the
+               middle band of the viewport (top 40% and bottom 55% are ignored),
+               giving a stable indicator while the user scrolls between cards. */
+            rootMargin: '-40% 0px -55% 0px', threshold: 0
+        });
         sections.forEach(function(s){ io.observe(s.el); });
     }
 })();
