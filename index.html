@@ -7,188 +7,389 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;1,900&display=swap" rel="stylesheet">
 
 <style>
+:root{
+    --primary:#2E007B;
+    --primary-2:#4B00B5;
+    --primary-gradient-end:rgba(73,8,160,0.9);
+    --accent-purple:rgba(126,52,255,0.34);
+    --secondary:#FFD700;
+    --ink:#190033;
+    --muted:#71637f;
+    --error-color:#d7263d;
+    --hover-background:#f3eaff;
+    --surface:rgba(255,255,255,0.86);
+    --surface-strong:#ffffff;
+    --line:rgba(46,0,123,0.12);
+    --shadow:0 24px 70px rgba(13,0,34,0.22);
+    --soft-shadow:0 14px 34px rgba(46,0,123,0.13);
+    --transition-fast:0.2s ease;
+    --transition-field:0.22s ease;
+    --transition-smooth:0.55s cubic-bezier(.2,.8,.2,1);
+    --bottom-nav-offset:86px;
+    --body-bottom-safe-area:calc(var(--bottom-nav-offset) + 26px);
+    --hero-glow-horizontal-position:85%;
+    --hero-glow-vertical-position:4%;
+    --hero-glow-size:31%;
+}
+
 *{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 
 body{
     margin:0;
-    font-family: Arial;
-    background: linear-gradient(180deg,#4B0082,#1a0033);
-    color:white;
+    min-height:100vh;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:
+        radial-gradient(circle at 20% -10%,rgba(255,215,0,0.34),transparent 28%),
+        radial-gradient(circle at var(--hero-glow-horizontal-position) var(--hero-glow-vertical-position),var(--accent-purple),transparent var(--hero-glow-size)),
+        linear-gradient(180deg,#2E007B 0%,#210057 34%,#5a36a1 39%,#f6f2ff 46%,#f7f4fb 100%);
+    color:var(--ink);
+    padding-bottom:var(--body-bottom-safe-area);
+    -webkit-font-smoothing:antialiased;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:
+        linear-gradient(135deg,rgba(255,255,255,0.18),transparent 42%),
+        radial-gradient(circle at 50% 42%,rgba(255,255,255,0.26),transparent 22%);
+    z-index:-1;
 }
 
 .logo{
     text-align:center;
-    font-size:42px;
-    margin:25px 0 10px;
-    font-family: 'Montserrat', sans-serif;
+    font-size:clamp(40px,12vw,58px);
+    margin:34px 0 8px;
+    font-family:'Montserrat',sans-serif;
     font-weight:900;
-    letter-spacing:1px;
+    letter-spacing:-1.7px;
+    filter:drop-shadow(0 16px 34px rgba(0,0,0,0.28));
+    animation:heroIn 0.75s ease both;
 }
 
-.logo span:nth-child(1){color:#FFD700;font-style:italic;}
+.logo span:nth-child(1){color:var(--secondary);font-style:italic;}
 .logo span:nth-child(2){
-    color:white;font-style:italic;
-    text-shadow:2px 2px 0 #8000ff,-2px -2px 0 #8000ff,0px 0px 10px rgba(128,0,255,0.6);
+    color:white;
+    font-style:italic;
+    text-shadow:0 2px 0 rgba(46,0,123,0.8),0 0 28px rgba(255,255,255,0.26);
 }
 
-.subtext{text-align:center;font-size:14px;opacity:0.9;margin-bottom:15px;}
+.subtext{
+    text-align:center;
+    font-size:15px;
+    line-height:1.35;
+    color:rgba(255,255,255,0.9);
+    margin:0 auto 4px;
+    padding:0 26px;
+    max-width:440px;
+}
+.subtext:last-of-type{margin-bottom:18px;color:rgba(255,255,255,0.72);}
 
 .feedback-container{
-    position:relative;height:40px;margin-bottom:10px;
-    display:flex;justify-content:center;align-items:center;overflow:hidden;
+    position:relative;
+    height:48px;
+    margin:6px auto 14px;
+    padding:0 18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    max-width:520px;
 }
 
 .feedback{
-    position:absolute;background:rgba(255,255,255,0.95);color:#4B0082;
-    padding:8px 14px;border-radius:20px;font-size:13px;font-weight:bold;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);opacity:0;transform:translateY(10px);
-    transition:all 0.5s ease;
+    position:absolute;
+    max-width:calc(100% - 32px);
+    background:rgba(255,255,255,0.78);
+    color:var(--primary);
+    padding:10px 15px;
+    border:1px solid rgba(255,255,255,0.7);
+    border-radius:999px;
+    font-size:13px;
+    font-weight:800;
+    line-height:1.25;
+    text-align:center;
+    box-shadow:0 12px 34px rgba(0,0,0,0.16);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    opacity:0;
+    transform:translateY(12px) scale(0.98);
+    transition:all var(--transition-smooth);
 }
-.feedback.active{opacity:1;transform:translateY(0);}
+.feedback.active{opacity:1;transform:translateY(0) scale(1);}
 
-.container{max-width:500px;margin:auto;padding:15px;}
+.container{
+    width:min(100%,540px);
+    margin:auto;
+    padding:0 16px 28px;
+}
 
 .card{
-    background:white;color:black;padding:18px;border-radius:14px;
-    margin-bottom:15px;box-shadow:0 8px 20px rgba(0,0,0,0.25);
+    position:relative;
+    overflow:hidden;
+    scroll-margin-top:18px;
+    background:var(--surface);
+    color:var(--ink);
+    padding:20px;
+    border:1px solid rgba(255,255,255,0.8);
+    border-radius:28px;
+    margin-bottom:16px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    animation:cardIn 0.58s ease both;
+}
+.card::before{
+    content:"";
+    position:absolute;
+    inset:0 0 auto;
+    height:3px;
+    background:linear-gradient(90deg,var(--secondary),rgba(255,215,0,0),var(--primary-2));
+    opacity:0.9;
 }
 
-h4{margin:0 0 10px;color:#4B0082;}
+h4{
+    margin:0 0 12px;
+    color:var(--primary);
+    font-size:16px;
+    line-height:1.2;
+    font-weight:900;
+    letter-spacing:-0.2px;
+}
 
 .row{display:flex;gap:10px;}
 .row input,.row select{flex:1;}
 
 input,select,textarea{
-    width:100%;padding:12px;margin-top:8px;border-radius:10px;
-    border:2px solid #8000ff;font-size:14px;
+    width:100%;
+    padding:15px 14px;
+    margin-top:9px;
+    border-radius:18px;
+    border:1.5px solid rgba(46,0,123,0.13);
+    background:rgba(255,255,255,0.92);
+    color:var(--ink);
+    font-size:15px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.85),0 10px 24px rgba(46,0,123,0.06);
+    transition:all var(--transition-field);
 }
 
-textarea{min-height:100px;resize:vertical;font-family:Arial;}
+textarea{min-height:116px;resize:vertical;font-family:inherit;line-height:1.45;}
+input::placeholder,textarea::placeholder{color:#9b90a8;}
 
 input:focus,select:focus,textarea:focus{
-    outline:none;border-color:#FFD700;box-shadow:0 0 5px #FFD700;
+    outline:none;
+    border-color:var(--secondary);
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(255,215,0,0.2),0 16px 32px rgba(46,0,123,0.12);
+    transform:translateY(-1px);
 }
 
 button{
-    width:100%;padding:16px;border:none;border-radius:12px;
-    background:#FFD700;color:#4B0082;font-weight:bold;font-size:16px;
-    margin-top:10px;cursor:pointer;transition:0.2s;
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:18px;
+    background:linear-gradient(135deg,var(--secondary),#ffe766);
+    color:var(--primary);
+    font-weight:900;
+    font-size:16px;
+    margin-top:10px;
+    cursor:pointer;
+    transition:transform var(--transition-fast),box-shadow var(--transition-fast),filter var(--transition-fast);
+    box-shadow:0 16px 34px rgba(255,215,0,0.26);
 }
-button:hover{background:#ffcc00;}
-button:active{transform:scale(0.97);}
+button:hover{filter:saturate(1.08) brightness(1.01);transform:translateY(-1px);}
+button:active{transform:scale(0.98);}
+.app-cta{
+    position:sticky;
+    bottom:var(--bottom-nav-offset);
+    z-index:20;
+    min-height:58px;
+    border-radius:22px;
+    box-shadow:0 18px 42px rgba(46,0,123,0.2),0 12px 28px rgba(255,215,0,0.28);
+}
 
-.hidden{display:none;}
+.hidden{display:none!important;}
 
 .whatsapp-float{
-    position:fixed;top:15px;right:15px;background:#25D366;color:white;
-    padding:10px 12px;border-radius:50px;font-size:14px;font-weight:bold;
-    text-decoration:none;box-shadow:0 5px 15px rgba(0,0,0,0.3);
-    display:flex;align-items:center;gap:6px;z-index:999;transition:0.3s;
-    animation:pulse 2s infinite;
+    position:fixed;
+    top:14px;
+    right:14px;
+    background:rgba(37,211,102,0.92);
+    color:white;
+    padding:10px 12px;
+    border:1px solid rgba(255,255,255,0.45);
+    border-radius:999px;
+    font-size:13px;
+    font-weight:900;
+    text-decoration:none;
+    box-shadow:0 12px 26px rgba(0,0,0,0.24);
+    display:flex;
+    align-items:center;
+    gap:6px;
+    z-index:999;
+    transition:transform var(--transition-field),box-shadow var(--transition-field),background var(--transition-field);
+    animation:pulse 2.5s infinite;
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
 }
-.whatsapp-float:hover{transform:scale(1.05);}
+.whatsapp-float:hover{transform:scale(1.04);}
 
 @keyframes pulse{
-    0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.06);}
+}
+@keyframes heroIn{
+    from{opacity:0;transform:translateY(-14px);}
+    to{opacity:1;transform:translateY(0);}
+}
+@keyframes cardIn{
+    from{opacity:0;transform:translateY(18px);}
+    to{opacity:1;transform:translateY(0);}
 }
 
-/* ── Endereço (autocomplete Google) — segue o padrão dos demais inputs ── */
-.endereco-row{display:flex;gap:8px;align-items:flex-end;margin-top:8px;}
+/* ── Endereço (autocomplete Google) — visual premium, contrato preservado ── */
+.endereco-row{display:flex;gap:9px;align-items:flex-end;margin-top:8px;}
 .endereco-row input{margin-top:0;flex:1;}
 
-/* botão limpar discreto, casando com o roxo do contorno */
 .btn-loc{
-    width:46px;min-width:46px;height:46px;padding:0;margin-top:0;
-    border-radius:10px;background:transparent;color:#8000ff;font-size:18px;
-    display:flex;align-items:center;justify-content:center;
-    cursor:pointer;border:2px solid #8000ff;transition:0.2s;flex-shrink:0;
+    width:48px;
+    min-width:48px;
+    height:48px;
+    padding:0;
+    margin-top:0;
+    border-radius:17px;
+    background:rgba(46,0,123,0.06);
+    color:var(--primary);
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    border:1.5px solid rgba(46,0,123,0.16);
+    box-shadow:none;
+    transition:background var(--transition-fast),transform var(--transition-fast);
+    flex-shrink:0;
 }
-.btn-loc:hover{background:#f3eaff;}
+.btn-loc:hover{background:rgba(46,0,123,0.1);}
 .btn-loc:active{transform:scale(0.95);}
 .btn-loc:disabled{opacity:0.5;cursor:not-allowed;}
 
 .endereco-resultado{
-    margin-top:8px;padding:10px 12px;border-radius:10px;
-    background:transparent;font-size:13px;color:#4B0082;
+    margin-top:10px;
+    padding:11px 13px;
+    border-radius:16px;
+    background:rgba(46,0,123,0.07);
+    font-size:13px;
+    color:var(--primary);
     display:none;
+    font-weight:700;
 }
 .endereco-resultado.visivel{display:block;}
 
-.cep-erro{color:#cc0000;font-size:12px;margin-top:4px;display:none;}
+.cep-erro{color:var(--error-color);font-size:12px;margin-top:6px;display:none;font-weight:700;}
 .cep-erro.visivel{display:block;}
 
-.complemento-row{display:flex;gap:8px;margin-top:8px;}
+.complemento-row{display:flex;gap:8px;margin-top:9px;}
 .complemento-row input{margin-top:0;flex:1;}
 
-/* ── Card de Rota — segue o padrão branco dos demais cards ── */
-.rota-card.card{ padding:18px; }
-.rota-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+/* ── Card de Rota ── */
+.rota-card.card{
+    background:linear-gradient(145deg,rgba(46,0,123,0.95),var(--primary-gradient-end));
+    color:white;
+}
+.rota-card h4{color:white;}
+.rota-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
 .rota-box{
-    flex:1;min-width:130px;
-    background:#f7f2ff;
-    border:2px solid #8000ff;
-    padding:14px;border-radius:12px;text-align:center;
-    transition:0.25s;
+    flex:1;
+    min-width:130px;
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.2);
+    padding:16px;
+    border-radius:22px;
+    text-align:center;
+    transition:background var(--transition-field),border-color var(--transition-field);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.2);
 }
 .rota-box.preenchido{
-    background:#fffbe6;
-    border-color:#FFD700;
+    background:rgba(255,215,0,0.16);
+    border-color:rgba(255,215,0,0.7);
 }
 .rota-box .label{
-    font-size:12px;color:#4B0082;opacity:0.85;margin-bottom:6px;
-    text-transform:uppercase;letter-spacing:0.5px;font-weight:bold;
+    font-size:11px;
+    color:rgba(255,255,255,0.75);
+    margin-bottom:8px;
+    text-transform:uppercase;
+    letter-spacing:0.7px;
+    font-weight:900;
 }
 .rota-box .valor{
-    font-size:22px;font-weight:bold;color:#4B0082;
+    font-size:24px;
+    font-weight:900;
+    color:white;
+    letter-spacing:-0.8px;
 }
 .rota-status{
-    font-size:13px;color:#4B0082;opacity:0.8;
-    margin-top:10px;text-align:center;
+    font-size:13px;
+    color:rgba(255,255,255,0.78);
+    margin-top:12px;
+    text-align:center;
 }
 .rota-status.calculando::after{
-    content:"";display:inline-block;width:12px;height:12px;
-    margin-left:6px;border-radius:50%;
-    border:2px solid #8000ff;border-top-color:transparent;
-    animation:spin 0.8s linear infinite;vertical-align:middle;
+    content:"";
+    display:inline-block;
+    width:12px;
+    height:12px;
+    margin-left:6px;
+    border-radius:50%;
+    border:2px solid var(--secondary);
+    border-top-color:transparent;
+    animation:spin 0.8s linear infinite;
+    vertical-align:middle;
 }
 @keyframes spin{to{transform:rotate(360deg);}}
 
 /* override pac-container do Google p/ casar com o design */
 .pac-container{
-    border-radius:10px;border:2px solid #8000ff;margin-top:2px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.25);font-family:Arial;
+    border-radius:18px;
+    border:1px solid rgba(46,0,123,0.16);
+    margin-top:4px;
+    box-shadow:var(--soft-shadow);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    overflow:hidden;
 }
-.pac-item{padding:8px 10px;cursor:pointer;}
-.pac-item:hover{background:#f3eaff;}
-.pac-item-query{color:#4B0082;font-weight:bold;}
+.pac-item{padding:10px 12px;cursor:pointer;}
+.pac-item:hover{background:var(--hover-background);}
+.pac-item-query{color:var(--primary);font-weight:800;}
 
-/* ── Checklist "Sim, selecionar itens a embalar" ──
-   Lista vertical limpa, na MESMA ordem digitada em "Itens a transportar".
-   Neutraliza o estilo global de `input` para os checkboxes desta lista. */
+/* ── Checklist "Sim, selecionar itens a embalar" ── */
 #embalagemItensLista{
     display:flex;
     flex-direction:column;
-    gap:6px;
-    margin-top:8px;
+    gap:8px;
+    margin-top:10px;
 }
 #embalagemItensLista .embalagem-item{
     display:flex;
     align-items:center;
     gap:10px;
-    padding:8px 10px;
-    border-radius:8px;
-    background:#f7f2ff;
-    border:1px solid #e3d4ff;
-    color:#4B0082;
+    padding:11px 12px;
+    border-radius:16px;
+    background:rgba(46,0,123,0.06);
+    border:1px solid rgba(46,0,123,0.1);
+    color:var(--primary);
     font-size:14px;
+    font-weight:700;
     line-height:1.3;
     cursor:pointer;
     width:100%;
     box-sizing:border-box;
 }
-#embalagemItensLista .embalagem-item:hover{background:#efe3ff;}
+#embalagemItensLista .embalagem-item:hover{background:rgba(46,0,123,0.1);}
 #embalagemItensLista .embalagem-item input[type="checkbox"]{
-    /* Reset do estilo global de inputs */
     width:18px;
     min-width:18px;
     height:18px;
@@ -196,13 +397,61 @@ button:active{transform:scale(0.97);}
     padding:0;
     border:none;
     border-radius:0;
-    accent-color:#8000ff;
+    accent-color:var(--primary);
     flex-shrink:0;
     cursor:pointer;
+    box-shadow:none;
 }
 #embalagemItensLista .embalagem-item-text{
     flex:1;
     word-break:break-word;
+}
+
+.bottom-nav{
+    position:fixed;
+    left:50%;
+    bottom:14px;
+    transform:translateX(-50%);
+    width:min(calc(100% - 24px),520px);
+    z-index:998;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:6px;
+    padding:8px;
+    border:1px solid rgba(255,255,255,0.62);
+    border-radius:26px;
+    background:rgba(255,255,255,0.78);
+    box-shadow:0 18px 48px rgba(31,0,79,0.22);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+}
+.bottom-nav a{
+    color:var(--primary);
+    text-decoration:none;
+    text-align:center;
+    font-size:11px;
+    font-weight:900;
+    padding:8px 4px;
+    border-radius:18px;
+    transition:background var(--transition-fast),transform var(--transition-fast);
+}
+.bottom-nav a:hover{
+    background:rgba(46,0,123,0.08);
+    transform:translateY(-1px);
+}
+.bottom-nav span{
+    display:block;
+    font-size:17px;
+    line-height:1;
+    margin-bottom:3px;
+}
+
+@media (max-width:420px){
+    .container{padding-left:12px;padding-right:12px;}
+    .card{padding:17px;border-radius:24px;margin-bottom:13px;}
+    .row,.complemento-row{gap:7px;}
+    input,select,textarea{font-size:14px;padding:14px 12px;border-radius:16px;}
+    .whatsapp-float{font-size:12px;padding:9px 10px;}
 }
 </style>
 </head>
@@ -229,7 +478,7 @@ button:active{transform:scale(0.97);}
 <div class="container">
 
   <!-- DADOS PESSOAIS -->
-  <div class="card">
+  <div class="card" id="dadosSection">
     <h4>👤 Dados</h4>
     <input id="nome" placeholder="Nome">
     <input id="telefone" placeholder="Telefone" inputmode="numeric">
@@ -330,7 +579,7 @@ button:active{transform:scale(0.97);}
   </div>
 
   <!-- ROTA (mesmo padrão dos demais cards) -->
-  <div class="card rota-card">
+  <div class="card rota-card" id="rotaSection">
     <h4>🗺️ Rota estimada</h4>
     <div class="rota-grid">
       <div class="rota-box" id="rotaBoxDistancia">
@@ -346,7 +595,7 @@ button:active{transform:scale(0.97);}
   </div>
 
   <!-- ITENS -->
-  <div class="card">
+  <div class="card" id="itensSection">
     <h4>📦 Itens a transportar</h4>
     <textarea id="itens" placeholder="Liste todos os itens (um por linha)"></textarea>
     <div>⚠️ É essencial listar todos os itens corretamente para evitar alteração no valor final.</div>
@@ -518,9 +767,16 @@ button:active{transform:scale(0.97);}
     </div>
   </div>
 
-  <button onclick="enviar()">ENVIAR ORÇAMENTO NO WHATSAPP 🚀</button>
+  <button class="app-cta" id="enviarCta" onclick="enviar()">ENVIAR ORÇAMENTO NO WHATSAPP 🚀</button>
 
 </div>
+
+<nav class="bottom-nav" aria-label="Navegação rápida">
+  <a href="#dadosSection" aria-label="Ir para dados pessoais"><span aria-hidden="true">👤</span>Dados</a>
+  <a href="#rotaSection" aria-label="Ir para rota estimada"><span aria-hidden="true">🗺️</span>Rota</a>
+  <a href="#itensSection" aria-label="Ir para itens a transportar"><span aria-hidden="true">📦</span>Itens</a>
+  <a href="#enviarCta" aria-label="Ir para enviar orçamento"><span aria-hidden="true">🚀</span>Enviar</a>
+</nav>
 
 <script>
 /* =========================================================
