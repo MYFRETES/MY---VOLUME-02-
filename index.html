@@ -872,6 +872,8 @@ const SUFIXOS_FIXOS = ["Coleta","Parada1","Parada2","Parada3","Destino"];
 
 let rotaUltima      = null;   // { distanciaKm, duracaoTexto }
 let debounceRota    = null;
+let debounceResumo  = null;
+const RESUMO_DEBOUNCE_MS = 80;
 let rotaRequestId   = 0;      // evita race condition entre chamadas concorrentes
 
 /* =========================================================
@@ -1188,7 +1190,7 @@ document.addEventListener("DOMContentLoaded", function(){
             if(document.getElementById("embalagem").value === "parcial"){
                 renderEmbalagemChecklist();
             }
-            if(typeof atualizarResumo === "function") atualizarResumo();
+            if(typeof agendarAtualizacaoResumo === "function") agendarAtualizacaoResumo();
         });
     }
 });
@@ -1197,10 +1199,39 @@ function valorOuPadrao(v){
     return (v || "").toString().trim() || "(não informado)";
 }
 
+function getPrimeiroValorPreenchido(ids){
+    for(let i = 0; i < ids.length; i++){
+        const el = document.getElementById(ids[i]);
+        const valor = (el && el.value ? el.value.toString().trim() : "");
+        if(valor) return valor;
+    }
+    return "";
+}
+
+function obterReferenciaEndereco(sufixo){
+    let candidatos = ["referencia" + sufixo, "pontoReferencia" + sufixo, "ref" + sufixo];
+    if(sufixo === "Coleta"){
+        candidatos = ["referenciaColeta","pontoReferenciaColeta","refColeta"];
+    } else if(sufixo === "Destino"){
+        candidatos = ["referenciaDestino","pontoReferenciaDestino","refDestino"];
+    }
+    return getPrimeiroValorPreenchido(candidatos);
+}
+
+function obterTipoVeiculoResumo(){
+    return getPrimeiroValorPreenchido(["veiculo","veículo","tipoVeiculo","tipo_veiculo"]) || "(definido no atendimento)";
+}
+
 function obterEnderecoResumo(sufixo){
     const endereco = montarEndereco(sufixo);
     const complemento = valorOuPadrao((document.getElementById("complemento" + sufixo) || {}).value || "");
-    return "Endereço: " + endereco + "\nComplemento: " + complemento + "\nReferência: (não informada)";
+    const referencia = obterReferenciaEndereco(sufixo);
+    return "Endereço: " + endereco + "\nComplemento: " + complemento + (referencia ? ("\nReferência: " + referencia) : "");
+}
+
+function agendarAtualizacaoResumo(){
+    clearTimeout(debounceResumo);
+    debounceResumo = setTimeout(atualizarResumo, RESUMO_DEBOUNCE_MS);
 }
 
 function atualizarResumo(){
@@ -1210,9 +1241,9 @@ function atualizarResumo(){
     };
 
     const itens = getItensTransportar();
-    const ajuda = document.getElementById("ajuda").value;
-    const qtdParadas = parseInt(document.getElementById("parada").value, 10) || 0;
-    const embalagem = document.getElementById("embalagem").value;
+    const ajuda = (document.getElementById("ajuda") || {}).value || "nao";
+    const qtdParadas = parseInt((document.getElementById("parada") || {}).value, 10) || 0;
+    const embalagem = (document.getElementById("embalagem") || {}).value || "nao";
 
     let embalagemTxt = "Embalagem: Não";
     if(embalagem === "completa"){
@@ -1243,7 +1274,7 @@ function atualizarResumo(){
         "Paradas: " + qtdParadas + "\n" +
         "Distância: " + (rotaUltima ? rotaUltima.distanciaKm : "(aguardando cálculo)") + "\n" +
         "Tempo estimado: " + (rotaUltima ? rotaUltima.duracaoTexto : "(aguardando cálculo)") + "\n" +
-        "Tipo de veículo: (definido no atendimento)"
+        "Tipo de veículo: " + obterTipoVeiculoResumo()
     );
     setTxt("resumoGeral",
         "Cliente: " + valorOuPadrao(document.getElementById("nome").value) + "\n" +
@@ -1263,8 +1294,11 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     }
 
-    document.addEventListener("input", function(){ atualizarResumo(); }, true);
-    document.addEventListener("change", function(){ atualizarResumo(); }, true);
+    const container = document.querySelector(".container");
+    if(container){
+        container.addEventListener("input", function(){ agendarAtualizacaoResumo(); });
+        container.addEventListener("change", function(){ agendarAtualizacaoResumo(); });
+    }
     atualizarResumo();
 });
 
