@@ -10,10 +10,13 @@
 :root{
     --primary:#2E007B;
     --primary-2:#4B00B5;
+    --primary-gradient-end:rgba(73,8,160,0.9);
     --accent-purple:rgba(126,52,255,0.34);
     --secondary:#FFD700;
     --ink:#190033;
     --muted:#71637f;
+    --error-color:#d7263d;
+    --hover-background:#f3eaff;
     --surface:rgba(255,255,255,0.86);
     --surface-strong:#ffffff;
     --line:rgba(46,0,123,0.12);
@@ -24,8 +27,8 @@
     --transition-smooth:0.55s cubic-bezier(.2,.8,.2,1);
     --bottom-nav-offset:86px;
     --body-bottom-safe-area:calc(var(--bottom-nav-offset) + 26px);
-    --hero-glow-x:85%;
-    --hero-glow-y:4%;
+    --hero-glow-horizontal-position:85%;
+    --hero-glow-vertical-position:4%;
     --hero-glow-size:31%;
 }
 
@@ -38,7 +41,7 @@ body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
     background:
         radial-gradient(circle at 20% -10%,rgba(255,215,0,0.34),transparent 28%),
-        radial-gradient(circle at var(--hero-glow-x) var(--hero-glow-y),var(--accent-purple),transparent var(--hero-glow-size)),
+        radial-gradient(circle at var(--hero-glow-horizontal-position) var(--hero-glow-vertical-position),var(--accent-purple),transparent var(--hero-glow-size)),
         linear-gradient(180deg,#2E007B 0%,#210057 34%,#5a36a1 39%,#f6f2ff 46%,#f7f4fb 100%);
     color:var(--ink);
     padding-bottom:var(--body-bottom-safe-area);
@@ -287,7 +290,7 @@ button:active{transform:scale(0.98);}
 }
 .endereco-resultado.visivel{display:block;}
 
-.cep-erro{color:#d7263d;font-size:12px;margin-top:6px;display:none;font-weight:700;}
+.cep-erro{color:var(--error-color);font-size:12px;margin-top:6px;display:none;font-weight:700;}
 .cep-erro.visivel{display:block;}
 
 .complemento-row{display:flex;gap:8px;margin-top:9px;}
@@ -295,7 +298,7 @@ button:active{transform:scale(0.98);}
 
 /* ── Card de Rota ── */
 .rota-card.card{
-    background:linear-gradient(145deg,rgba(46,0,123,0.95),rgba(73,8,160,0.9));
+    background:linear-gradient(145deg,rgba(46,0,123,0.95),var(--primary-gradient-end));
     color:white;
 }
 .rota-card h4{color:white;}
@@ -359,7 +362,7 @@ button:active{transform:scale(0.98);}
     overflow:hidden;
 }
 .pac-item{padding:10px 12px;cursor:pointer;}
-.pac-item:hover{background:#f3eaff;}
+.pac-item:hover{background:var(--hover-background);}
 .pac-item-query{color:var(--primary);font-weight:800;}
 
 /* ── Checklist "Sim, selecionar itens a embalar" ── */
