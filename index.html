@@ -145,6 +145,11 @@ button:active{transform:scale(0.97);}
     font-size:13px;color:#4B0082;opacity:0.8;
     margin-top:10px;text-align:center;
 }
+.rota-mapa{
+    margin-top:12px;width:100%;height:260px;border-radius:12px;
+    border:2px solid #8000ff;overflow:hidden;display:none;
+}
+.rota-mapa.visivel{display:block;}
 .rota-status.calculando::after{
     content:"";display:inline-block;width:12px;height:12px;
     margin-left:6px;border-radius:50%;
@@ -343,6 +348,7 @@ button:active{transform:scale(0.97);}
       </div>
     </div>
     <div class="rota-status" id="rotaStatus">Preencha Coleta e Destino para calcular automaticamente.</div>
+    <div class="rota-mapa" id="rotaMapa"></div>
   </div>
 
   <!-- ITENS -->
@@ -535,13 +541,32 @@ const SUFIXOS_FIXOS = ["Coleta","Parada1","Parada2","Parada3","Destino"];
 let rotaUltima      = null;   // { distanciaKm, duracaoTexto }
 let debounceRota    = null;
 let rotaRequestId   = 0;      // evita race condition entre chamadas concorrentes
+let directionsService  = null;
+let directionsRenderer = null;
+let rotaMap            = null;
 
 /* =========================================================
    GOOGLE MAPS — callback do <script async>
    ========================================================= */
 function initMaps(){
     SUFIXOS_FIXOS.forEach(criarAutocomplete);
+    directionsService  = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer({ suppressMarkers: false });
     setRotaStatus("Preencha Coleta e Destino para calcular automaticamente.");
+}
+
+/* cria (uma única vez) o mapa que desenha a rota */
+function garantirMapa(){
+    if(rotaMap) return;
+    const el = document.getElementById("rotaMapa");
+    if(!el) return;
+    rotaMap = new google.maps.Map(el, {
+        center: { lat: -19.9, lng: -43.9 },
+        zoom: 6,
+        disableDefaultUI: true,
+        zoomControl: true
+    });
+    directionsRenderer.setMap(rotaMap);
 }
 
 function criarAutocomplete(sufixo){
@@ -665,6 +690,30 @@ function resetRotaUI(msg){
     document.getElementById("rotaBoxTempo").classList.remove("preenchido");
     setRotaStatus(msg, false);
     rotaUltima = null;
+    limparMapa();
+}
+
+/* limpa a rota desenhada e esconde o mapa */
+function limparMapa(){
+    if(directionsRenderer) directionsRenderer.set("directions", null);
+    const el = document.getElementById("rotaMapa");
+    if(el) el.classList.remove("visivel");
+}
+
+/* mensagem amigável para cada status do DirectionsService */
+function mensagemStatusRota(status){
+    switch(status){
+        case "ZERO_RESULTS":
+            return "Não há rota de carro entre os endereços informados.";
+        case "NOT_FOUND":
+            return "Um dos endereços não foi encontrado. Verifique Coleta, paradas e Destino.";
+        case "REQUEST_DENIED":
+            return "Requisição negada pelo Google Maps (verifique a chave/API de rotas).";
+        case "OVER_QUERY_LIMIT":
+            return "Limite de consultas do Google Maps atingido. Tente novamente em instantes.";
+        default:
+            return "Não foi possível calcular a rota (" + status + ").";
+    }
 }
 
 /* debounce só usado p/ mudanças não atômicas (ex.: alterar nº de paradas) */
@@ -696,7 +745,7 @@ function calcularRota(){
     const myId = ++rotaRequestId;
     setRotaStatus("Calculando rota", true);
 
-    const service = new google.maps.DirectionsService();
+    const service = directionsService || new google.maps.DirectionsService();
     service.route({
         origin:      { lat: origem.lat,  lng: origem.lng },
         destination: { lat: destino.lat, lng: destino.lng },
@@ -709,7 +758,7 @@ function calcularRota(){
         if(myId !== rotaRequestId) return;
 
         if(status !== "OK" || !result || !result.routes || !result.routes[0]){
-            resetRotaUI("Não foi possível calcular a rota (" + status + ").");
+            resetRotaUI(mensagemStatusRota(status));
             return;
         }
 
@@ -727,6 +776,13 @@ function calcularRota(){
         document.getElementById("rotaBoxDistancia").classList.add("preenchido");
         document.getElementById("rotaBoxTempo").classList.add("preenchido");
         setRotaStatus("Rota calculada automaticamente ✅", false);
+
+        // desenha a rota real no mapa
+        garantirMapa();
+        if(directionsRenderer){
+            document.getElementById("rotaMapa").classList.add("visivel");
+            directionsRenderer.setDirections(result);
+        }
 
         rotaUltima = { distanciaKm: kmTxt, duracaoTexto: duracaoTxt };
     });
