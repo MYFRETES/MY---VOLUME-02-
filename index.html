@@ -551,7 +551,7 @@ let rotaMap            = null;
 function initMaps(){
     SUFIXOS_FIXOS.forEach(criarAutocomplete);
     directionsService  = new google.maps.DirectionsService();
-    directionsRenderer = new google.maps.DirectionsRenderer({ suppressMarkers: false });
+    directionsRenderer = new google.maps.DirectionsRenderer();
     setRotaStatus("Preencha Coleta e Destino para calcular automaticamente.");
 }
 
@@ -695,7 +695,7 @@ function resetRotaUI(msg){
 
 /* limpa a rota desenhada e esconde o mapa */
 function limparMapa(){
-    if(directionsRenderer) directionsRenderer.set("directions", null);
+    if(directionsRenderer) directionsRenderer.setDirections(null);
     const el = document.getElementById("rotaMapa");
     if(el) el.classList.remove("visivel");
 }
