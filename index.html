@@ -4,526 +4,205 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MYfretes</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:ital,wght@0,800;1,900&display=swap" rel="stylesheet">
-<meta name="theme-color" content="#2E007B">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;1,900&display=swap" rel="stylesheet">
 
 <style>
-/* =========================================================
-   MYFRETES — PREMIUM MOBILE APP REDESIGN (visual only)
-   Brand: #2E007B (primary) / #FFD700 (secondary)
-   Inspired by Apple, Material 3, Uber, Nubank, iFood.
-   ========================================================= */
-:root{
-    --c-primary:#2E007B;
-    --c-primary-2:#4A14B8;
-    --c-primary-deep:#1A0048;
-    --c-accent:#FFD700;
-    --c-accent-2:#FFC400;
-    --c-bg-1:#1A0048;
-    --c-bg-2:#2E007B;
-    --c-bg-3:#0E0024;
-    --c-ink:#0F0A23;
-    --c-ink-soft:#3B2C66;
-    --c-muted:#7A6FA0;
-    --c-line:#ECE6F8;
-    --c-line-2:#DCD2F2;
-    --c-surface:#FFFFFF;
-    --c-surface-soft:#F7F3FF;
-    --c-success:#1FB573;
-    --c-error:#E11D48;
-    --r-sm:10px;
-    --r-md:14px;
-    --r-lg:20px;
-    --r-xl:28px;
-    --r-pill:999px;
-    --sh-1:0 1px 2px rgba(15,10,35,.06), 0 2px 8px rgba(15,10,35,.06);
-    --sh-2:0 8px 24px rgba(15,10,35,.10), 0 2px 6px rgba(15,10,35,.06);
-    --sh-3:0 18px 40px -12px rgba(46,0,123,.35), 0 8px 20px rgba(15,10,35,.10);
-    --sh-glow:0 10px 30px rgba(255,215,0,.35);
-    --ease:cubic-bezier(.4,0,.2,1);
-    --ease-spring:cubic-bezier(.34,1.56,.64,1);
-    --safe-bottom:env(safe-area-inset-bottom,0px);
-    --safe-top:env(safe-area-inset-top,0px);
-}
-
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-
-html,body{margin:0;padding:0;}
+*{box-sizing:border-box;}
 
 body{
-    font-family:'Inter','Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Arial,sans-serif;
-    color:#FFFFFF;
-    background:
-        radial-gradient(1200px 600px at 80% -10%, rgba(255,215,0,.10), transparent 60%),
-        radial-gradient(900px 600px at -10% 30%, rgba(74,20,184,.55), transparent 60%),
-        linear-gradient(180deg, #2E007B 0%, #1A0048 55%, #0E0024 100%);
-    background-attachment: fixed;
-    min-height:100vh;
-    padding-top:calc(var(--safe-top) + 8px);
-    padding-bottom:calc(24px + var(--safe-bottom));
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-    overflow-x:hidden;
+    margin:0;
+    font-family: Arial;
+    background: linear-gradient(180deg,#4B0082,#1a0033);
+    color:white;
 }
 
-/* Decorative aurora blobs — purely visual, behind content */
-body::before, body::after{
-    content:"";position:fixed;pointer-events:none;z-index:0;
-    width:520px;height:520px;border-radius:50%;
-    filter:blur(90px);opacity:.45;
-}
-body::before{
-    top:-180px;left:-160px;
-    background:radial-gradient(circle, #6B2BFF 0%, transparent 70%);
-    animation:float1 18s var(--ease) infinite alternate;
-}
-body::after{
-    bottom:-220px;right:-180px;
-    background:radial-gradient(circle, #FFD700 0%, transparent 70%);
-    opacity:.18;
-    animation:float2 22s var(--ease) infinite alternate;
-}
-@keyframes float1{to{transform:translate3d(60px,40px,0) scale(1.1);}}
-@keyframes float2{to{transform:translate3d(-50px,-30px,0) scale(1.15);}}
-
-/* =========================================================
-   HEADER / LOGO
-   ========================================================= */
 .logo{
     text-align:center;
-    font-size:44px;
-    margin:18px 0 6px;
-    font-family:'Montserrat',sans-serif;
+    font-size:42px;
+    margin:25px 0 10px;
+    font-family: 'Montserrat', sans-serif;
     font-weight:900;
-    letter-spacing:.5px;
-    position:relative;z-index:2;
-    animation:fadeDown .7s var(--ease) both;
+    letter-spacing:1px;
 }
-.logo span:nth-child(1){
-    color:#FFD700;font-style:italic;
-    text-shadow:0 6px 24px rgba(255,215,0,.35);
-}
+
+.logo span:nth-child(1){color:#FFD700;font-style:italic;}
 .logo span:nth-child(2){
-    color:#FFFFFF;font-style:italic;
-    text-shadow:
-        0 0 1px rgba(255,255,255,.4),
-        0 8px 30px rgba(122,68,255,.6);
+    color:white;font-style:italic;
+    text-shadow:2px 2px 0 #8000ff,-2px -2px 0 #8000ff,0px 0px 10px rgba(128,0,255,0.6);
 }
 
-.subtext{
-    text-align:center;font-size:14px;line-height:1.45;
-    opacity:.85;margin:0 24px 4px;
-    color:#EFE9FF;
-    position:relative;z-index:2;
-    animation:fadeDown .8s .05s var(--ease) both;
-}
-.subtext + .subtext{opacity:.65;margin-bottom:18px;font-size:13px;}
+.subtext{text-align:center;font-size:14px;opacity:0.9;margin-bottom:15px;}
 
-@keyframes fadeDown{
-    from{opacity:0;transform:translateY(-10px);}
-    to{opacity:1;transform:translateY(0);}
-}
-
-/* =========================================================
-   FEEDBACK CAROUSEL (social proof chips)
-   ========================================================= */
 .feedback-container{
-    position:relative;height:46px;margin:6px 14px 14px;
+    position:relative;height:40px;margin-bottom:10px;
     display:flex;justify-content:center;align-items:center;overflow:hidden;
-    z-index:2;
 }
+
 .feedback{
-    position:absolute;max-width:92%;
-    background:rgba(255,255,255,.92);
-    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-    color:var(--c-primary);
-    padding:9px 16px;border-radius:var(--r-pill);
-    font-size:13px;font-weight:600;letter-spacing:.1px;
-    box-shadow:0 10px 24px rgba(15,10,35,.25), inset 0 0 0 1px rgba(255,255,255,.5);
-    opacity:0;transform:translateY(12px) scale(.96);
-    transition:all .55s var(--ease);
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    position:absolute;background:rgba(255,255,255,0.95);color:#4B0082;
+    padding:8px 14px;border-radius:20px;font-size:13px;font-weight:bold;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);opacity:0;transform:translateY(10px);
+    transition:all 0.5s ease;
 }
-.feedback.active{opacity:1;transform:translateY(0) scale(1);}
+.feedback.active{opacity:1;transform:translateY(0);}
 
-/* =========================================================
-   WHATSAPP FLOAT (top-right pill, glassy)
-   ========================================================= */
-.whatsapp-float{
-    position:fixed;top:calc(var(--safe-top) + 14px);right:14px;
-    background:linear-gradient(135deg,#25D366,#1EBE5D);
-    color:#FFFFFF;
-    padding:10px 14px;border-radius:var(--r-pill);
-    font-size:13px;font-weight:700;letter-spacing:.2px;
-    text-decoration:none;
-    box-shadow:0 10px 24px rgba(37,211,102,.45), inset 0 0 0 1px rgba(255,255,255,.25);
-    display:flex;align-items:center;gap:6px;z-index:50;
-    transition:transform .25s var(--ease-spring), box-shadow .25s var(--ease);
-    animation:pulse 2.6s var(--ease) infinite;
-}
-.whatsapp-float:hover{transform:translateY(-1px) scale(1.04);}
-.whatsapp-float:active{transform:scale(.97);}
-@keyframes pulse{
-    0%,100%{box-shadow:0 10px 24px rgba(37,211,102,.45), inset 0 0 0 1px rgba(255,255,255,.25);}
-    50%{box-shadow:0 14px 30px rgba(37,211,102,.65), inset 0 0 0 1px rgba(255,255,255,.35);}
-}
+.container{max-width:500px;margin:auto;padding:15px;}
 
-/* =========================================================
-   LAYOUT CONTAINER
-   ========================================================= */
-.container{
-    max-width:520px;margin:0 auto;padding:6px 16px 24px;
-    position:relative;z-index:2;
-}
-
-/* =========================================================
-   CARDS — glassmorphic floating surfaces
-   ========================================================= */
 .card{
-    background:rgba(255,255,255,.98);
-    color:var(--c-ink);
-    padding:20px 18px;
-    border-radius:var(--r-lg);
-    margin-bottom:16px;
-    box-shadow:var(--sh-2);
-    border:1px solid rgba(255,255,255,.6);
-    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-    position:relative;
-    transition:transform .35s var(--ease), box-shadow .35s var(--ease);
-    animation:cardIn .55s var(--ease) both;
-    scroll-margin-top:80px;
-}
-.card:hover{box-shadow:var(--sh-3);}
-.card:nth-child(1){animation-delay:.02s;}
-.card:nth-child(2){animation-delay:.06s;}
-.card:nth-child(3){animation-delay:.10s;}
-.card:nth-child(4){animation-delay:.14s;}
-.card:nth-child(5){animation-delay:.18s;}
-.card:nth-child(6){animation-delay:.22s;}
-.card:nth-child(7){animation-delay:.26s;}
-.card:nth-child(8){animation-delay:.30s;}
-
-@keyframes cardIn{
-    from{opacity:0;transform:translateY(14px);}
-    to{opacity:1;transform:translateY(0);}
+    background:white;color:black;padding:18px;border-radius:14px;
+    margin-bottom:15px;box-shadow:0 8px 20px rgba(0,0,0,0.25);
 }
 
-h4{
-    margin:0 0 12px;
-    color:var(--c-primary);
-    font-family:'Inter',sans-serif;
-    font-weight:700;
-    font-size:15px;
-    letter-spacing:-.01em;
-    display:flex;align-items:center;gap:8px;
-}
+h4{margin:0 0 10px;color:#4B0082;}
 
-/* =========================================================
-   FORM CONTROLS
-   ========================================================= */
 .row{display:flex;gap:10px;}
-.row input,.row select{flex:1;min-width:0;}
+.row input,.row select{flex:1;}
 
 input,select,textarea{
-    width:100%;
-    padding:13px 14px;
-    margin-top:10px;
-    border-radius:var(--r-md);
-    border:1.5px solid var(--c-line);
-    background:#FAFAFE;
-    color:var(--c-ink);
-    font-size:15px;
-    font-family:inherit;
-    font-weight:500;
-    line-height:1.3;
-    transition:border-color .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease), transform .2s var(--ease);
-    -webkit-appearance:none;appearance:none;
-}
-input::placeholder,textarea::placeholder{color:#9A91B5;font-weight:400;}
-
-textarea{
-    min-height:110px;resize:vertical;
-    font-family:inherit;line-height:1.5;
+    width:100%;padding:12px;margin-top:8px;border-radius:10px;
+    border:2px solid #8000ff;font-size:14px;
 }
 
-input:hover,select:hover,textarea:hover{border-color:var(--c-line-2);background:#FFFFFF;}
+textarea{min-height:100px;resize:vertical;font-family:Arial;}
+
 input:focus,select:focus,textarea:focus{
-    outline:none;
-    border-color:var(--c-primary);
-    background:#FFFFFF;
-    box-shadow:0 0 0 4px rgba(46,0,123,.10);
+    outline:none;border-color:#FFD700;box-shadow:0 0 5px #FFD700;
 }
 
-/* Native select arrow */
-select{
-    background-image:
-        linear-gradient(45deg,transparent 50%, var(--c-primary) 50%),
-        linear-gradient(135deg, var(--c-primary) 50%, transparent 50%);
-    background-position:
-        calc(100% - 18px) calc(50% + 2px),
-        calc(100% - 13px) calc(50% + 2px);
-    background-size:5px 5px, 5px 5px;
-    background-repeat:no-repeat;
-    padding-right:38px;
-    cursor:pointer;
-}
-
-/* =========================================================
-   BUTTONS
-   ========================================================= */
 button{
-    width:100%;
-    padding:16px 18px;
-    border:none;
-    border-radius:var(--r-md);
-    background:linear-gradient(135deg, #FFD700 0%, #FFC400 100%);
-    color:var(--c-primary);
-    font-weight:800;font-size:16px;letter-spacing:.2px;
-    font-family:inherit;
-    margin-top:12px;
-    cursor:pointer;
-    box-shadow:0 10px 24px rgba(255,215,0,.35), inset 0 -2px 0 rgba(0,0,0,.06);
-    transition:transform .15s var(--ease), box-shadow .25s var(--ease), filter .2s var(--ease);
-    position:relative;overflow:hidden;
+    width:100%;padding:16px;border:none;border-radius:12px;
+    background:#FFD700;color:#4B0082;font-weight:bold;font-size:16px;
+    margin-top:10px;cursor:pointer;transition:0.2s;
 }
-button:hover{transform:translateY(-1px);box-shadow:0 14px 30px rgba(255,215,0,.45);filter:brightness(1.02);}
-button:active{transform:translateY(0) scale(.98);}
-button::after{
-    content:"";position:absolute;inset:0;
-    background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,.45) 50%, transparent 70%);
-    transform:translateX(-100%);transition:transform .8s var(--ease);
+button:hover{background:#ffcc00;}
+button:active{transform:scale(0.97);}
+
+.hidden{display:none;}
+
+.whatsapp-float{
+    position:fixed;top:15px;right:15px;background:#25D366;color:white;
+    padding:10px 12px;border-radius:50px;font-size:14px;font-weight:bold;
+    text-decoration:none;box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    display:flex;align-items:center;gap:6px;z-index:999;transition:0.3s;
+    animation:pulse 2s infinite;
 }
-button:hover::after{transform:translateX(100%);}
+.whatsapp-float:hover{transform:scale(1.05);}
 
-.hidden{display:none !important;}
+@keyframes pulse{
+    0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}
+}
 
-/* =========================================================
-   ENDEREÇO (Google Autocomplete) — refined
-   ========================================================= */
-.endereco-row{display:flex;gap:10px;align-items:flex-end;margin-top:10px;}
+/* ── Endereço (autocomplete Google) — segue o padrão dos demais inputs ── */
+.endereco-row{display:flex;gap:8px;align-items:flex-end;margin-top:8px;}
 .endereco-row input{margin-top:0;flex:1;}
 
+/* botão limpar discreto, casando com o roxo do contorno */
 .btn-loc{
-    width:48px;min-width:48px;height:48px;padding:0;margin-top:0;
-    border-radius:var(--r-md);
-    background:var(--c-surface-soft);
-    color:var(--c-primary);
-    font-size:16px;font-weight:700;
+    width:46px;min-width:46px;height:46px;padding:0;margin-top:0;
+    border-radius:10px;background:transparent;color:#8000ff;font-size:18px;
     display:flex;align-items:center;justify-content:center;
-    cursor:pointer;
-    border:1.5px solid var(--c-line);
-    transition:background .2s var(--ease), transform .15s var(--ease), border-color .2s var(--ease);
-    flex-shrink:0;
-    box-shadow:none;
+    cursor:pointer;border:2px solid #8000ff;transition:0.2s;flex-shrink:0;
 }
-.btn-loc:hover{background:#EEE3FF;border-color:var(--c-line-2);transform:none;}
-.btn-loc:active{transform:scale(.94);}
-.btn-loc:disabled{opacity:.5;cursor:not-allowed;}
-.btn-loc::after{display:none;}
+.btn-loc:hover{background:#f3eaff;}
+.btn-loc:active{transform:scale(0.95);}
+.btn-loc:disabled{opacity:0.5;cursor:not-allowed;}
 
 .endereco-resultado{
-    margin-top:10px;padding:10px 12px;border-radius:var(--r-md);
-    background:rgba(46,0,123,.06);
-    font-size:13px;color:var(--c-primary);font-weight:600;
-    display:none;
-    border-left:3px solid var(--c-success);
-}
-.endereco-resultado.visivel{display:block;animation:slideIn .35s var(--ease);}
-
-.cep-erro{
-    color:var(--c-error);font-size:12.5px;margin-top:6px;font-weight:600;
+    margin-top:8px;padding:10px 12px;border-radius:10px;
+    background:transparent;font-size:13px;color:#4B0082;
     display:none;
 }
-.cep-erro.visivel{display:block;animation:slideIn .3s var(--ease);}
+.endereco-resultado.visivel{display:block;}
 
-@keyframes slideIn{
-    from{opacity:0;transform:translateY(-4px);}
-    to{opacity:1;transform:translateY(0);}
-}
+.cep-erro{color:#cc0000;font-size:12px;margin-top:4px;display:none;}
+.cep-erro.visivel{display:block;}
 
-.complemento-row{display:flex;gap:10px;margin-top:10px;}
+.complemento-row{display:flex;gap:8px;margin-top:8px;}
 .complemento-row input{margin-top:0;flex:1;}
 
-/* =========================================================
-   ROTA CARD — premium stat cards
-   ========================================================= */
-.rota-card.card{padding:20px 18px;}
-.rota-grid{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;}
+/* ── Card de Rota — segue o padrão branco dos demais cards ── */
+.rota-card.card{ padding:18px; }
+.rota-grid{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
 .rota-box{
-    flex:1;min-width:140px;
-    background:linear-gradient(160deg, #F7F3FF 0%, #EFE6FF 100%);
-    border:1.5px solid var(--c-line);
-    padding:16px 14px;border-radius:var(--r-md);text-align:center;
-    transition:background .35s var(--ease), border-color .35s var(--ease), transform .25s var(--ease-spring);
-    position:relative;overflow:hidden;
+    flex:1;min-width:130px;
+    background:#f7f2ff;
+    border:2px solid #8000ff;
+    padding:14px;border-radius:12px;text-align:center;
+    transition:0.25s;
 }
 .rota-box.preenchido{
-    background:linear-gradient(160deg,#FFF9D9 0%, #FFEFAA 100%);
+    background:#fffbe6;
     border-color:#FFD700;
-    transform:translateY(-2px);
-    box-shadow:0 8px 18px rgba(255,215,0,.25);
 }
 .rota-box .label{
-    font-size:11px;color:var(--c-primary);opacity:.75;margin-bottom:6px;
-    text-transform:uppercase;letter-spacing:.8px;font-weight:700;
+    font-size:12px;color:#4B0082;opacity:0.85;margin-bottom:6px;
+    text-transform:uppercase;letter-spacing:0.5px;font-weight:bold;
 }
 .rota-box .valor{
-    font-size:22px;font-weight:800;color:var(--c-primary);
-    font-feature-settings:"tnum";
-    letter-spacing:-.02em;
+    font-size:22px;font-weight:bold;color:#4B0082;
 }
 .rota-status{
-    font-size:13px;color:var(--c-ink-soft);opacity:.9;
-    margin-top:12px;text-align:center;font-weight:500;
+    font-size:13px;color:#4B0082;opacity:0.8;
+    margin-top:10px;text-align:center;
 }
 .rota-status.calculando::after{
     content:"";display:inline-block;width:12px;height:12px;
-    margin-left:8px;border-radius:50%;
-    border:2px solid var(--c-primary);border-top-color:transparent;
-    animation:spin .8s linear infinite;vertical-align:middle;
+    margin-left:6px;border-radius:50%;
+    border:2px solid #8000ff;border-top-color:transparent;
+    animation:spin 0.8s linear infinite;vertical-align:middle;
 }
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* =========================================================
-   GOOGLE PAC CONTAINER OVERRIDE
-   ========================================================= */
+/* override pac-container do Google p/ casar com o design */
 .pac-container{
-    border-radius:var(--r-md);
-    border:1px solid var(--c-line);
-    margin-top:6px;
-    box-shadow:var(--sh-3);
-    font-family:'Inter',sans-serif;
-    background:#FFFFFF;
-    overflow:hidden;
+    border-radius:10px;border:2px solid #8000ff;margin-top:2px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.25);font-family:Arial;
 }
-.pac-item{padding:10px 12px;cursor:pointer;border-top:1px solid #F2EDFC;font-size:13.5px;}
-.pac-item:first-child{border-top:none;}
-.pac-item:hover{background:var(--c-surface-soft);}
-.pac-item-query{color:var(--c-primary);font-weight:700;}
+.pac-item{padding:8px 10px;cursor:pointer;}
+.pac-item:hover{background:#f3eaff;}
+.pac-item-query{color:#4B0082;font-weight:bold;}
 
-/* =========================================================
-   EMBALAGEM CHECKLIST
-   ========================================================= */
+/* ── Checklist "Sim, selecionar itens a embalar" ──
+   Lista vertical limpa, na MESMA ordem digitada em "Itens a transportar".
+   Neutraliza o estilo global de `input` para os checkboxes desta lista. */
 #embalagemItensLista{
-    display:flex;flex-direction:column;gap:8px;margin-top:10px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-top:8px;
 }
 #embalagemItensLista .embalagem-item{
-    display:flex;align-items:center;gap:12px;
-    padding:11px 14px;
-    border-radius:var(--r-md);
-    background:var(--c-surface-soft);
-    border:1.5px solid var(--c-line);
-    color:var(--c-ink);
-    font-size:14px;line-height:1.35;font-weight:500;
-    cursor:pointer;width:100%;
-    transition:background .2s var(--ease), border-color .2s var(--ease), transform .15s var(--ease);
-}
-#embalagemItensLista .embalagem-item:hover{
-    background:#EEE3FF;border-color:var(--c-line-2);
-}
-#embalagemItensLista .embalagem-item:has(input:checked){
-    background:linear-gradient(135deg,#FFF9D9,#FFEFAA);
-    border-color:#FFD700;
-    color:var(--c-primary);
-}
-#embalagemItensLista .embalagem-item input[type="checkbox"]{
-    width:20px;min-width:20px;height:20px;
-    margin:0;padding:0;border:none;border-radius:6px;
-    accent-color:var(--c-primary);
-    flex-shrink:0;cursor:pointer;
-    box-shadow:none;background:transparent;
-}
-#embalagemItensLista .embalagem-item-text{flex:1;word-break:break-word;}
-
-/* =========================================================
-   RESUMO — accordion no fluxo natural
-   ========================================================= */
-.resumo-card{overflow:hidden;}
-.resumo-toggle{
-    width:100%;
-    margin:0;
-    background:linear-gradient(135deg,#FFFDF2,#FFF6C8);
-    color:var(--c-primary);
-    border:1px solid rgba(255,215,0,.45);
-    border-radius:16px;
-    padding:14px 16px;
-    display:flex;align-items:center;justify-content:space-between;
-    font-size:15px;font-weight:800;
-    box-shadow:0 10px 22px rgba(255,215,0,.22), inset 0 1px 0 rgba(255,255,255,.75);
-}
-.resumo-toggle .resumo-meta{
-    display:flex;align-items:center;gap:8px;
-}
-.resumo-chevron{
-    font-size:18px;
-    transition:transform .28s var(--ease);
-}
-.resumo-toggle[aria-expanded="true"] .resumo-chevron{
-    transform:rotate(180deg);
-}
-.resumo-body{
-    max-height:0;
-    opacity:0;
-    overflow:hidden;
-    transition:max-height .35s var(--ease), opacity .25s var(--ease), margin-top .25s var(--ease);
-}
-.resumo-body.is-open{
-    max-height:2200px;
-    opacity:1;
-    margin-top:14px;
-}
-.resumo-grid{
-    display:grid;
-    grid-template-columns:1fr;
+    display:flex;
+    align-items:center;
     gap:10px;
+    padding:8px 10px;
+    border-radius:8px;
+    background:#f7f2ff;
+    border:1px solid #e3d4ff;
+    color:#4B0082;
+    font-size:14px;
+    line-height:1.3;
+    cursor:pointer;
+    width:100%;
+    box-sizing:border-box;
 }
-.resumo-item{
-    background:var(--c-surface-soft);
-    border:1px solid var(--c-line);
-    border-radius:16px;
-    padding:12px 13px;
-    box-shadow:var(--sh-1);
+#embalagemItensLista .embalagem-item:hover{background:#efe3ff;}
+#embalagemItensLista .embalagem-item input[type="checkbox"]{
+    /* Reset do estilo global de inputs */
+    width:18px;
+    min-width:18px;
+    height:18px;
+    margin:0;
+    padding:0;
+    border:none;
+    border-radius:0;
+    accent-color:#8000ff;
+    flex-shrink:0;
+    cursor:pointer;
 }
-.resumo-tag{
-    display:inline-flex;align-items:center;gap:6px;
-    font-size:12px;font-weight:700;
-    color:#5B3A9A;
-    background:#EEE3FF;
-    border-radius:999px;
-    padding:4px 10px;
-    margin-bottom:7px;
-}
-.resumo-value{
-    color:var(--c-ink-soft);
-    font-size:13px;
-    line-height:1.45;
-    white-space:pre-line;
-}
-.resumo-enviar{
-    margin-top:12px;
-}
-
-/* =========================================================
-   RESPONSIVE / MOBILE TUNING
-   ========================================================= */
-@media (max-width:380px){
-    .logo{font-size:38px;}
-    .feedback{font-size:12px;padding:8px 14px;}
-    .card{padding:18px 16px;border-radius:18px;}
-    .resumo-tag{font-size:11px;}
-}
-@media (min-width:640px){
-    .container{padding-top:8px;}
-}
-
-/* Reduce motion */
-@media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{
-        animation-duration:.001ms !important;
-        transition-duration:.001ms !important;
-    }
+#embalagemItensLista .embalagem-item-text{
+    flex:1;
+    word-break:break-word;
 }
 </style>
 </head>
@@ -550,14 +229,14 @@ button:hover::after{transform:translateX(100%);}
 <div class="container">
 
   <!-- DADOS PESSOAIS -->
-  <div class="card" id="sec-dados">
+  <div class="card">
     <h4>👤 Dados</h4>
     <input id="nome" placeholder="Nome">
     <input id="telefone" placeholder="Telefone" inputmode="numeric">
   </div>
 
   <!-- DATA E HORÁRIO -->
-  <div class="card" id="sec-data">
+  <div class="card">
     <h4>📅 Data e Horário do Frete</h4>
     <div class="row">
       <input id="data" placeholder="Data (dd/mm/aaaa)" maxlength="10">
@@ -566,7 +245,7 @@ button:hover::after{transform:translateX(100%);}
   </div>
 
   <!-- COLETA -->
-  <div class="card" id="sec-coleta">
+  <div class="card">
     <h4>📍 Coleta</h4>
     <div class="endereco-row">
       <input id="cepColeta" placeholder="Digite o endereço (rua, número, cidade...)" autocomplete="off">
@@ -581,7 +260,7 @@ button:hover::after{transform:translateX(100%);}
   </div>
 
   <!-- PARADAS -->
-  <div class="card" id="sec-paradas">
+  <div class="card">
     <h4>Adicionar paradas?</h4>
     <select id="parada" onchange="toggleParadas()">
       <option value="0">Não</option>
@@ -636,7 +315,7 @@ button:hover::after{transform:translateX(100%);}
   </div>
 
   <!-- DESTINO -->
-  <div class="card" id="sec-destino">
+  <div class="card">
     <h4>📍 Destino</h4>
     <div class="endereco-row">
       <input id="cepDestino" placeholder="Digite o endereço..." autocomplete="off">
@@ -667,14 +346,14 @@ button:hover::after{transform:translateX(100%);}
   </div>
 
   <!-- ITENS -->
-  <div class="card" id="sec-itens">
+  <div class="card">
     <h4>📦 Itens a transportar</h4>
     <textarea id="itens" placeholder="Liste todos os itens (um por linha)"></textarea>
     <div>⚠️ É essencial listar todos os itens corretamente para evitar alteração no valor final.</div>
   </div>
 
   <!-- AJUDANTES -->
-  <div class="card" id="sec-ajudante">
+  <div class="card">
     <h4>👥 Precisa de ajudante?</h4>
     <select id="ajuda" onchange="toggleAjuda()">
       <option value="nao">Não</option>
@@ -839,24 +518,7 @@ button:hover::after{transform:translateX(100%);}
     </div>
   </div>
 
-  <div class="card resumo-card" id="sec-resumo">
-    <button type="button" class="resumo-toggle" id="resumoToggle" aria-expanded="false" aria-controls="resumoBody">
-      <span class="resumo-meta">📋 Resumo</span>
-      <span class="resumo-chevron" aria-hidden="true">⌄</span>
-    </button>
-    <div class="resumo-body" id="resumoBody">
-      <div class="resumo-grid">
-        <div class="resumo-item"><span class="resumo-tag">📍 Retirada</span><div class="resumo-value" id="resumoRetirada">Preencha os dados para visualizar.</div></div>
-        <div class="resumo-item"><span class="resumo-tag">🏁 Destino</span><div class="resumo-value" id="resumoDestino">Preencha os dados para visualizar.</div></div>
-        <div class="resumo-item"><span class="resumo-tag">📦 Itens</span><div class="resumo-value" id="resumoItens">Preencha os dados para visualizar.</div></div>
-        <div class="resumo-item"><span class="resumo-tag">👷 Ajudantes</span><div class="resumo-value" id="resumoAjudantes">Preencha os dados para visualizar.</div></div>
-        <div class="resumo-item"><span class="resumo-tag">📅 Data/Horário</span><div class="resumo-value" id="resumoDataHorario">Preencha os dados para visualizar.</div></div>
-        <div class="resumo-item"><span class="resumo-tag">🚚 Dados do Frete</span><div class="resumo-value" id="resumoFrete">Preencha os dados para visualizar.</div></div>
-        <div class="resumo-item"><span class="resumo-tag">💰 Resumo Geral</span><div class="resumo-value" id="resumoGeral">Preencha os dados para visualizar.</div></div>
-      </div>
-      <button class="resumo-enviar" onclick="enviar()">ENVIAR ORÇAMENTO NO WHATSAPP 🚀</button>
-    </div>
-  </div>
+  <button onclick="enviar()">ENVIAR ORÇAMENTO NO WHATSAPP 🚀</button>
 
 </div>
 
@@ -872,8 +534,6 @@ const SUFIXOS_FIXOS = ["Coleta","Parada1","Parada2","Parada3","Destino"];
 
 let rotaUltima      = null;   // { distanciaKm, duracaoTexto }
 let debounceRota    = null;
-let debounceResumo  = null;
-const RESUMO_DEBOUNCE_MS = 80;
 let rotaRequestId   = 0;      // evita race condition entre chamadas concorrentes
 
 /* =========================================================
@@ -1005,7 +665,6 @@ function resetRotaUI(msg){
     document.getElementById("rotaBoxTempo").classList.remove("preenchido");
     setRotaStatus(msg, false);
     rotaUltima = null;
-    if(typeof atualizarResumo === "function") atualizarResumo();
 }
 
 /* debounce só usado p/ mudanças não atômicas (ex.: alterar nº de paradas) */
@@ -1070,7 +729,6 @@ function calcularRota(){
         setRotaStatus("Rota calculada automaticamente ✅", false);
 
         rotaUltima = { distanciaKm: kmTxt, duracaoTexto: duracaoTxt };
-        if(typeof atualizarResumo === "function") atualizarResumo();
     });
 }
 
@@ -1092,13 +750,11 @@ function toggleParadas(){
     document.getElementById("parada3Div").classList.toggle("hidden", qtd < 3);
     atualizarParadasAjuda();
     agendarRecalculoRota();
-    if(typeof atualizarResumo === "function") atualizarResumo();
 }
 
 function toggleAjuda(){
     document.getElementById("ajudaDiv").classList.toggle("hidden", document.getElementById("ajuda").value !== "sim");
     atualizarParadasAjuda();
-    if(typeof atualizarResumo === "function") atualizarResumo();
 }
 
 function atualizarParadasAjuda(){
@@ -1111,7 +767,6 @@ function atualizarParadasAjuda(){
 
 function toggleDesmontar(){
     document.getElementById("itensDesmontar").classList.toggle("hidden", document.getElementById("desmontar").value !== "sim");
-    if(typeof atualizarResumo === "function") atualizarResumo();
 }
 
 /* =========================================================
@@ -1179,7 +834,6 @@ function toggleEmbalagem(){
     } else {
         container.classList.add("hidden");
     }
-    if(typeof atualizarResumo === "function") atualizarResumo();
 }
 
 // Mantém a checklist sincronizada quando o usuário edita "Itens a transportar"
@@ -1190,116 +844,8 @@ document.addEventListener("DOMContentLoaded", function(){
             if(document.getElementById("embalagem").value === "parcial"){
                 renderEmbalagemChecklist();
             }
-            if(typeof agendarAtualizacaoResumo === "function") agendarAtualizacaoResumo();
         });
     }
-});
-
-function valorOuPadrao(v){
-    return (v || "").toString().trim() || "(não informado)";
-}
-
-function getPrimeiroValorPreenchido(ids){
-    for(let i = 0; i < ids.length; i++){
-        const el = document.getElementById(ids[i]);
-        const valor = (el && el.value ? el.value.toString().trim() : "");
-        if(valor) return valor;
-    }
-    return "";
-}
-
-function obterReferenciaEndereco(sufixo){
-    let id = "referencia" + sufixo;
-    if(sufixo === "Coleta"){
-        id = "referenciaColeta";
-    } else if(sufixo === "Destino"){
-        id = "referenciaDestino";
-    }
-    return getPrimeiroValorPreenchido([id]);
-}
-
-function obterTipoVeiculoResumo(){
-    return getPrimeiroValorPreenchido(["tipoVeiculo"]) || "(definido no atendimento)";
-}
-
-function obterEnderecoResumo(sufixo){
-    const endereco = montarEndereco(sufixo);
-    const complemento = valorOuPadrao((document.getElementById("complemento" + sufixo) || {}).value || "");
-    const referencia = obterReferenciaEndereco(sufixo);
-    return "Endereço: " + endereco + "\nComplemento: " + complemento + (referencia ? ("\nReferência: " + referencia) : "");
-}
-
-function agendarAtualizacaoResumo(){
-    clearTimeout(debounceResumo);
-    debounceResumo = setTimeout(atualizarResumo, RESUMO_DEBOUNCE_MS);
-}
-
-function atualizarResumo(){
-    const setTxt = function(id, valor){
-        const el = document.getElementById(id);
-        if(el) el.textContent = valor;
-    };
-
-    const itens = getItensTransportar();
-    const ajuda = (document.getElementById("ajuda") || {}).value || "nao";
-    const qtdParadas = parseInt((document.getElementById("parada") || {}).value, 10) || 0;
-    const embalagem = (document.getElementById("embalagem") || {}).value || "nao";
-
-    let embalagemTxt = "Embalagem: Não";
-    if(embalagem === "completa"){
-        embalagemTxt = "Embalagem: Completa";
-    } else if(embalagem === "parcial"){
-        const selecionados = Array.from(
-            document.querySelectorAll('#embalagemItensLista input[type="checkbox"]:checked')
-        ).map(cb => cb.value);
-        embalagemTxt = "Embalagem parcial: " + (selecionados.length ? selecionados.join(", ") : "(nenhum item selecionado)");
-    }
-
-    setTxt("resumoRetirada", obterEnderecoResumo("Coleta"));
-    setTxt("resumoDestino", obterEnderecoResumo("Destino"));
-    setTxt("resumoItens",
-        "Itens listados: " + (itens.length || 0) + "\n" +
-        (itens.length ? itens.map(i => "• " + i).join("\n") : "(nenhum item informado)") + "\n" +
-        embalagemTxt
-    );
-    setTxt("resumoAjudantes",
-        "Precisa de ajudante: " + (ajuda === "sim" ? "Sim" : "Não") + "\n" +
-        "Quantidade: " + (ajuda === "sim" ? descreverQtdAjudante((document.getElementById("quantidade_ajudante") || {}).value) : "(não aplicável)")
-    );
-    setTxt("resumoDataHorario",
-        "Data: " + valorOuPadrao((document.getElementById("data") || {}).value) + "\n" +
-        "Horário: " + valorOuPadrao((document.getElementById("horario") || {}).value)
-    );
-    setTxt("resumoFrete",
-        "Paradas: " + qtdParadas + "\n" +
-        "Distância: " + (rotaUltima ? rotaUltima.distanciaKm : "(aguardando cálculo)") + "\n" +
-        "Tempo estimado: " + (rotaUltima ? rotaUltima.duracaoTexto : "(aguardando cálculo)") + "\n" +
-        "Tipo de veículo: " + obterTipoVeiculoResumo()
-    );
-    setTxt("resumoGeral",
-        "Cliente: " + valorOuPadrao((document.getElementById("nome") || {}).value) + "\n" +
-        "Telefone: " + valorOuPadrao((document.getElementById("telefone") || {}).value) + "\n" +
-        "Observações: " + valorOuPadrao((document.getElementById("observacoes") || {}).value)
-    );
-}
-
-document.addEventListener("DOMContentLoaded", function(){
-    const resumoToggle = document.getElementById("resumoToggle");
-    const resumoBody = document.getElementById("resumoBody");
-    if(resumoToggle && resumoBody){
-        resumoToggle.addEventListener("click", function(){
-            const expanded = resumoToggle.getAttribute("aria-expanded") === "true";
-            resumoToggle.setAttribute("aria-expanded", expanded ? "false" : "true");
-            resumoBody.classList.toggle("is-open", !expanded);
-        });
-    }
-
-    const container = document.querySelector(".container");
-    if(container){
-        container.addEventListener("input", function(){ agendarAtualizacaoResumo(); });
-        container.addEventListener("change", function(){ agendarAtualizacaoResumo(); });
-    }
-    atualizarResumo();
 });
 
 function nivel(id){
